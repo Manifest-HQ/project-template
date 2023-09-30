@@ -1,7 +1,5 @@
-const express = require('express');
 const fs = require('fs');
 
-const app = express();
 const port = process.env.PORT || 3000;
 
 const admin = require('./firebase.js');
@@ -23,13 +21,4 @@ docRef.onSnapshot((doc) => {
   } else {
     console.log('Document not found');
   }
-});
-
-// Health check endpoint
-app.get('/status', (req, res) => {
-  res.send('Server is running!');
-});
-
-app.listen(port, () => {
-  console.log(`Express server started on http://localhost:${port}`);
 });
