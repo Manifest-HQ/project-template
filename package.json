@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node index.js",
-    "dev": "nuxt --host '0.0.0.0' --port $PORT",
+    "dev": "cd mynuxt && npm run dev",
     "start": "concurrently \"npm run server\" \"npm run dev\"",
     "heroku-postbuild": "cd mynuxt && npm install"
   },
