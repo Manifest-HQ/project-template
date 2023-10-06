@@ -1,0 +1,10 @@
+{
+  "name": "My Nuxt App",
+  "description": "Nuxt.js App on Heroku.",
+  "stack": "heroku-22",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
