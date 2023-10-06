@@ -1,25 +1,22 @@
-const fs = require('fs')
+const fs = require('fs');
+const admin = require('./firebase.js');
 
-const port = process.env.PORT || 3000
+const firestore = admin.firestore();
 
-const admin = require('./firebase.js')
+// Query the Firestore collection
+const filesRef = firestore.collection('files');
+const filesQuery = filesRef.where('project', '!=', 'CA');
 
-const firestore = admin.firestore()
+filesQuery.onSnapshot((querySnapshot) => {
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    console.log(`Document data: ${JSON.stringify(data)}`);
 
-const docRef = firestore.doc('files/test')
+    const filePath = data.path;
+    fs.writeFileSync('app/' + filePath, `${data.value}`);
+  });
+}, (error) => {
+  console.error(`Error fetching documents: ${error}`);
+});
 
-docRef.onSnapshot((doc) => {
-  if (doc.exists) {
-    const data = doc.data()
-    console.log(doc.data())
-    console.log(`Document data: ${JSON.stringify(data)}`)
-
-    // Path to the file in the Nuxt project
-    const filePath = data.path
-
-    // Write the data to the file
-    fs.writeFileSync('app/' + filePath, `${data.value}`)
-  } else {
-    console.log('Document not found')
-  }
-})
+console.log('started')

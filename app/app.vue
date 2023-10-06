@@ -1,8 +1,1 @@
-<template>
-  <div>
-    <div style="background:#FFF">
-      hola
-      <Example />
-    </div>
-  </div>
-</template>
+<template><div><div style="background:#FAF">       hola bc       <Example />     </div>   </div> </template>

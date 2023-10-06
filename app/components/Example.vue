@@ -1,3 +1,1 @@
-<template>
-  <div>example component</div>
-</template>
+<template>example</template>
