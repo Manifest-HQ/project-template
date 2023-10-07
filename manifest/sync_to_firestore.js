@@ -57,8 +57,8 @@ const walkSync = (dir) => {
     const filePath = path.join(dir, file)
     const stat = fs.statSync(filePath)
 
-    if (ig.ignores(filePath)) {
-      return // Skip this file or directory
+    if (filePath.includes('/.git/') || filePath.includes('/.github/') || ig.ignores(filePath)) {
+      return
     }
 
     if (stat.isDirectory()) {
