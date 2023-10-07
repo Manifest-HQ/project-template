@@ -5,7 +5,7 @@ const firestore = admin.firestore()
 
 // Query the Firestore collection
 const filesRef = firestore.collection('files')
-const filesQuery = filesRef.where('project', '!=', 'CA')
+const filesQuery = filesRef.where('projectID', '!=', 'CA')
 
 filesQuery.onSnapshot((querySnapshot) => {
   querySnapshot.forEach((doc) => {
