@@ -1,6 +1,7 @@
 const admin = require('firebase-admin')
 const fs = require('fs')
 const path = require('path')
+const ignore = require('ignore')
 
 // Initialize Firebase Admin
 const serviceAccount = require('./service_account.json')
@@ -13,6 +14,11 @@ const db = admin.firestore()
 
 // Get repository name from environment variable set by GitHub Actions
 const repoName = process.env.GITHUB_REPOSITORY.split('/').pop()
+
+const ig = ignore()
+if (fs.existsSync('.gitignore')) {
+  ig.add(fs.readFileSync('.gitignore').toString())
+}
 
 const uploadToFirestore = (filePath) => {
   const fileContent = fs.readFileSync(filePath, 'utf8')
@@ -50,6 +56,10 @@ const walkSync = (dir) => {
   fs.readdirSync(dir).forEach(file => {
     const filePath = path.join(dir, file)
     const stat = fs.statSync(filePath)
+
+    if (ig.ignores(filePath)) {
+      return // Skip this file or directory
+    }
 
     if (stat.isDirectory()) {
       walkSync(filePath)
