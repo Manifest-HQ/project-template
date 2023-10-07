@@ -3,7 +3,7 @@ name: Sync to Firestore
 on:
   push:
     branches:
-      - main # or your default branch name
+      - '*' # all branches
 
 jobs:
   sync:

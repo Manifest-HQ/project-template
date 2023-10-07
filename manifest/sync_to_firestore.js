@@ -20,12 +20,15 @@ if (fs.existsSync('.gitignore')) {
   ig.add(fs.readFileSync('.gitignore').toString())
 }
 
+const branchName = process.env.GITHUB_REF.split('/').pop()
+
 const uploadToFirestore = (filePath) => {
   const fileContent = fs.readFileSync(filePath, 'utf8')
 
   // Create the document data
   const data = {
     projectID: repoName,
+    branch: branchName,
     path: filePath,
     value: fileContent,
     updated_at: admin.firestore.Timestamp.now()

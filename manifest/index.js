@@ -10,7 +10,7 @@ const filesQuery = filesRef.where('projectID', '!=', 'CA')
 filesQuery.onSnapshot((querySnapshot) => {
   querySnapshot.forEach((doc) => {
     const data = doc.data()
-    console.log(`Document data: ${JSON.stringify(data)}`)
+    // console.log(`Document data: ${JSON.stringify(data)}`)
 
     const filePath = data.path
     fs.writeFileSync('app/' + filePath, `${data.value}`)
