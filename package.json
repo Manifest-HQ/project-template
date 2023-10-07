@@ -8,7 +8,8 @@
     "server": "node manifest/index.js",
     "dev": "cd app && npm run dev",
     "start": "concurrently \"npm run server\" \"npm run dev\"",
-    "heroku-postbuild": "cd app && npm install"
+    "heroku-postbuild": "cd app && npm install",
+    "lint": "eslint ."
   },
   "author": "",
   "license": "ISC",
@@ -17,5 +18,9 @@
     "express": "^4.18.2",
     "firebase-admin": "^11.11.0",
     "nodemon": "^3.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.43.0",
+    "eslint-config-standard": "^17.1.0"
   }
 }

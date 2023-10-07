@@ -1,0 +1,32 @@
+name: Sync to Firestore
+
+on:
+  push:
+    branches:
+      - main # or your default branch name
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: |
+        echo "{}" > package.json
+        npm install firebase-admin
+
+    - name: Sync to Firestore
+      env:
+        FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+      run: |
+        echo "$FIREBASE_SERVICE_ACCOUNT" > service_account.json
+        node manifest/sync_to_firestore.js
