@@ -13,8 +13,9 @@ const db = admin.firestore();
   try {
     await db.collection('releases').add({
       release: process.env.RELEASE_VERSION,
-      link: process.env.RELEASE_URL,
-      project: process.env.REPO_NAME
+      link: `https://github.com/Manifest-HQ/${process.env.REPO_NAME}/releases/download/${process.env.RELEASE_VERSION}/public.zip`,
+      project: process.env.REPO_NAME,
+      created_at: admin.firestore.Timestamp.now()
     });
     console.log('Data successfully written to Firestore!');
   } catch (error) {
