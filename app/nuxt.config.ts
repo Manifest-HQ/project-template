@@ -1,5 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  app: {
+    head: {
+      viewport: 'width=device-width, minimum-scale=1.0, maximum-scale = 1.0, user-scalable = no, viewport-fit=cover'
+    }
+    // pageTransition: { name: 'page', mode: 'out-in' }
+  },
   devtools: { enabled: true },
   runtimeConfig: {
     public: {

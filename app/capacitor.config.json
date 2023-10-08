@@ -1,5 +1,5 @@
 {
-  "appId": "com.manifest-hq.demo",
+  "appId": "com.manifesthq.demo",
   "appName": "manifest-app",
   "webDir": ".output/public",
   "server": {
