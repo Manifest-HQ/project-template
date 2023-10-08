@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="pt-safe" style="background:#FAF">
-      Date is: 07/09/2023 18:50, end.
+    <div class="pt-safe" style="background:red">
+      Date is: 08/10/2023 1:50, end.
       <Example />
     </div>
   </div>
