@@ -77,6 +77,9 @@ jobs:
         echo "::set-output name=version::$VERSION"
       shell: bash
 
+    - name: Install Firebase CLI
+      run: npm install -g firebase-tools
+
     - name: Upload to Firebase Storage
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
