@@ -1,11 +1,14 @@
 <template>
   <div>
-    {{ GITHUB_BRANCH }}
+    This is an example
+    {{ GITHUB_REPO }}
   </div>
 </template>
 
 <script setup>
 const config = useRuntimeConfig()
 
-const GITHUB_BRANCH = config.NUXT_PUBLIC_GITHUB_BRANCH
+const GITHUB_REPO = computed(() => {
+  return config.public
+})
 </script>
