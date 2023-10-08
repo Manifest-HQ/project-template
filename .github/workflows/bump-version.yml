@@ -1,0 +1,41 @@
+name: Bump version on push to main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+
+    - name: Bump version for root package.json
+      run: |
+        npm install -g npm-check-updates
+        ncu -u
+        npm version patch -m "Bump version to %s [skip ci]"
+        
+    - name: Bump version for app/package.json
+      run: |
+        cd app
+        npm install -g npm-check-updates
+        ncu -u
+        npm version patch -m "Bump version to %s [skip ci]"
+        cd ..
+
+    - name: Push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git commit -m "Auto bump versions [skip ci]"
+        git push

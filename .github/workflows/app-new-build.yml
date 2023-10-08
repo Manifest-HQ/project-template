@@ -1,0 +1,47 @@
+name: Deploy to Firebase
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: |
+        cd app
+        npm ci
+
+    - name: Run generate
+      run: |
+        cd app
+        npm run generate
+
+    - name: Zip output folder
+      run: |
+        cd app/.output
+        zip -r ../public.zip public/
+
+    - name: Get version from package.json
+      id: get_version
+      run: |
+        VERSION=$(jq -r .version app/package.json)
+        echo "::set-output name=version::$VERSION"
+      shell: bash
+
+    - name: Upload to Firebase Storage
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      run: |
+        firebase storage:upload app/public.zip --project your_project_id --token $FIREBASE_TOKEN --path /projects-apps-updates/${{ github.repository }}/${{ steps.get_version.outputs.version }}.zip
