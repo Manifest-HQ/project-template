@@ -22,6 +22,6 @@ jobs:
       run: |
         echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > serviceAccountKey.json
         npm install firebase-admin
-        node .github/scripts/sync-to-firestore.js
+        node .github/scripts/sync_to_firestore.js
       env:
         FIREBASE_PROJECT_ID: manifest-hq
