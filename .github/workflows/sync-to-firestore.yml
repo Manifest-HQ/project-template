@@ -29,4 +29,4 @@ jobs:
         GITHUB_REPOSITORY: ${{ github.repository }}
       run: |
         echo "$FIREBASE_SERVICE_ACCOUNT" > service_account.json
-        node manifest/sync_to_firestore.js
+        node .github/scripts/sync_to_firestore.js
