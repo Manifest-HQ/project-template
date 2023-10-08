@@ -4,7 +4,7 @@ const path = require('path')
 const ignore = require('ignore')
 
 // Initialize Firebase Admin
-const serviceAccount = require('./service_account.json')
+const serviceAccount = require('../../serviceAccountKey.json')
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
