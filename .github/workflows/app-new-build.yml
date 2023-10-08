@@ -3,10 +3,46 @@ name: Upload zip to Firebase
 on:
   push:
     branches:
-      - 'none' # TODO change to main
+      - main
 
 jobs:
-  deploy:
+  bump_version:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+
+    - name: Configure Git identity
+      run: |
+        git config --local user.email "loama18@gmail.com"
+        git config --local user.name "loama"
+
+    - name: Bump version for root package.json
+      run: |
+        npm version patch --no-git-tag-version
+        git add package.json package-lock.json
+        git commit -m "Bump version [skip ci]"
+        
+    - name: Bump version for app/package.json
+      run: |
+        cd app
+        npm version patch --no-git-tag-version
+        git add package.json package-lock.json
+        git commit -m "Bump version in app [skip ci]"
+        cd ..
+
+    - name: Push changes
+      run: |
+        git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}
+        git push
+   
+  upload_zip:
     runs-on: ubuntu-latest
 
     steps:
@@ -44,4 +80,4 @@ jobs:
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       run: |
-        firebase storage:upload app/public.zip --project your_project_id --token $FIREBASE_TOKEN --path /projects-apps-updates/${{ github.repository }}/${{ steps.get_version.outputs.version }}.zip
+        firebase storage:upload app/public.zip --project manifest-hq --token $FIREBASE_TOKEN --path /projects-apps-updates/${{ github.repository }}/${{ steps.get_version.outputs.version }}.zip
