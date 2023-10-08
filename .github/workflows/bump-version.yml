@@ -22,6 +22,9 @@ jobs:
       run: |
         npm install -g npm-check-updates
         ncu -u
+        npm install
+        git add package.json package-lock.json
+        git commit -m "Update dependencies [skip ci]"
         npm version patch -m "Bump version to %s [skip ci]"
         
     - name: Bump version for app/package.json
@@ -29,6 +32,9 @@ jobs:
         cd app
         npm install -g npm-check-updates
         ncu -u
+        npm install
+        git add package.json package-lock.json
+        git commit -m "Update dependencies in app [skip ci]"
         npm version patch -m "Bump version to %s [skip ci]"
         cd ..
 
@@ -36,6 +42,4 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add .
-        git commit -m "Auto bump versions [skip ci]"
         git push
