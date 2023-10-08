@@ -18,6 +18,11 @@ jobs:
       with:
         node-version: '18'
 
+    - name: Configure Git identity
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+
     - name: Bump version for root package.json
       run: |
         npm install -g npm-check-updates
@@ -39,7 +44,4 @@ jobs:
         cd ..
 
     - name: Push changes
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git push
+      run: git push
