@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="pt-safe" style="background:blue">
+  <div class="h-screen">
+    <div class="pt-safe bg-orange-300 h-full">
       Date is: 08/10/2023 1:50, end.
       <Example />
     </div>

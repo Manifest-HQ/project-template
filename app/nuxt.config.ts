@@ -7,6 +7,9 @@ export default defineNuxtConfig({
     // pageTransition: { name: 'page', mode: 'out-in' }
   },
   devtools: { enabled: true },
+  modules: [
+    '@nuxtjs/tailwindcss'
+  ],
   runtimeConfig: {
     public: {
       // do not update this, it will be overwritten by the build but it needs to be exactly this here
