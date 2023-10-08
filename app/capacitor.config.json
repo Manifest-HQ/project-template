@@ -1,6 +1,6 @@
 {
-  "appId": "com.manifest.demo",
-  "appName": "changename-app",
+  "appId": "com.manifest-hq.demo",
+  "appName": "manifest-app",
   "webDir": ".output/public",
   "server": {
     "androidScheme": "https"

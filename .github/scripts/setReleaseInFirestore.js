@@ -1,6 +1,7 @@
 const admin = require('firebase-admin');
 
 const serviceAccount = require('../../serviceAccountKey.json');
+const capacitorConfig = require('../../app/capacitor.config.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -15,7 +16,8 @@ const db = admin.firestore();
       release: process.env.RELEASE_VERSION,
       link: `https://github.com/${process.env.REPO_NAME}/releases/download/${process.env.RELEASE_VERSION}/public.zip`,
       project: process.env.REPO_NAME,
-      created_at: admin.firestore.Timestamp.now()
+      created_at: admin.firestore.Timestamp.now(),
+      app_id: capacitorConfig.appId
     });
     console.log('Data successfully written to Firestore!');
   } catch (error) {
