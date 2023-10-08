@@ -25,22 +25,16 @@ jobs:
 
     - name: Bump version for root package.json
       run: |
-        npm install -g npm-check-updates
-        ncu -u
-        npm install
+        npm version patch --no-git-tag-version
         git add package.json package-lock.json
-        git commit -m "Update dependencies [skip ci]"
-        npm version patch -m "Bump version to %s [skip ci]"
+        git commit -m "Bump version [skip ci]"
         
     - name: Bump version for app/package.json
       run: |
         cd app
-        npm install -g npm-check-updates
-        ncu -u
-        npm install
+        npm version patch --no-git-tag-version
         git add package.json package-lock.json
-        git commit -m "Update dependencies in app [skip ci]"
-        npm version patch -m "Bump version to %s [skip ci]"
+        git commit -m "Bump version in app [skip ci]"
         cd ..
 
     - name: Push changes
