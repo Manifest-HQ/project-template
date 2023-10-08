@@ -1,9 +1,9 @@
-name: Deploy to Firebase
+name: Upload zip to Firebase
 
 on:
   push:
     branches:
-      - main
+      - 'none' # TODO change to main
 
 jobs:
   deploy:
