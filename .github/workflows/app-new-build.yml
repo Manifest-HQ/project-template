@@ -43,6 +43,7 @@ jobs:
         git push
    
   upload_zip:
+    needs: bump_version
     runs-on: ubuntu-latest
 
     steps:
