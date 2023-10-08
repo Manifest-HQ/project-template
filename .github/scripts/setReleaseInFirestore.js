@@ -13,7 +13,7 @@ const db = admin.firestore();
   try {
     await db.collection('releases').add({
       release: process.env.RELEASE_VERSION,
-      link: `https://github.com/Manifest-HQ/${process.env.REPO_NAME}/releases/download/${process.env.RELEASE_VERSION}/public.zip`,
+      link: `https://github.com/${process.env.REPO_NAME}/releases/download/${process.env.RELEASE_VERSION}/public.zip`,
       project: process.env.REPO_NAME,
       created_at: admin.firestore.Timestamp.now()
     });
