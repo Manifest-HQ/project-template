@@ -8,8 +8,11 @@
 </template>
 
 <script setup>
+import { CapacitorUpdater } from '@capgo/capacitor-updater'
+
 onMounted(() => {
   // TODO use this only on ios and android, not web
+  CapacitorUpdater.notifyAppReady()
 })
 </script>
 
