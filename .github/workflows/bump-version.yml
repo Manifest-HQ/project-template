@@ -18,14 +18,27 @@ jobs:
       with:
         node-version: '18'
 
-    - name: Bump version for root
-      uses: phips28/gh-action-bump-version@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-        PACKAGEJSON_DIR: './'
+    - name: Configure Git identity
+      run: |
+        git config --local user.email "loama18@gmail.com"
+        git config --local user.name "loama"
 
-    - name: Bump version for app
-      uses: phips28/gh-action-bump-version@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-        PACKAGEJSON_DIR: './app'
+    - name: Bump version for root package.json
+      run: |
+        npm version patch --no-git-tag-version
+        git add package.json package-lock.json
+        git commit -m "Bump version [skip ci]"
+        
+    - name: Bump version for app/package.json
+      run: |
+        cd app
+        npm version patch --no-git-tag-version
+        git add package.json package-lock.json
+        git commit -m "Bump version in app [skip ci]"
+        cd ..
+
+    - name: Push changes
+      run: |
+        git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}
+        git push
+      
