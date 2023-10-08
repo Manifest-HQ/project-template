@@ -8,5 +8,8 @@ export default defineNuxtConfig({
       PROJECT_ID: process.env.NUXT_PUBLIC_PROJECT_ID
     }
   },
-  ssr: false
+  ssr: false,
+  nitro: {
+    preset: 'nitro-prerender'
+  }
 })
