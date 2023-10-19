@@ -39,5 +39,5 @@
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-vue": "^9.17.0"
   },
-  "version": "1.0.33"
+  "version": "1.0.34"
 }
