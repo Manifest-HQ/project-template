@@ -7,7 +7,7 @@
   },
   "plugins": {
 		"CapacitorUpdater": {
-			"updateUrl": "https://cbb6-187-189-208-79.ngrok-free.app/updates",
+			"updateUrl": "https://d8a9-187-189-208-79.ngrok-free.app/updates",
       "appReadyTimeout": 10000
 		}
 	}

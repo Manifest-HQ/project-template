@@ -1,8 +1,7 @@
 <template>
   <div class="h-screen">
     <div class="pt-safe bg-zinc-100 h-full px-4">
-      <Calendar />
-      <Example />
+      hola v0.1
     </div>
   </div>
 </template>
