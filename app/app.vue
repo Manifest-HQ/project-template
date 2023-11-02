@@ -1,7 +1,7 @@
 <template>
   <div class="h-screen">
     <div class="pt-safe bg-zinc-100 h-full px-4">
-      hola v0.2
+      hola v0.3
     </div>
   </div>
 </template>
