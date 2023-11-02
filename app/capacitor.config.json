@@ -7,7 +7,7 @@
   },
   "plugins": {
 		"CapacitorUpdater": {
-			"updateUrl": "https://d8a9-187-189-208-79.ngrok-free.app/updates",
+			"updateUrl": "https://api.manifest-hq.com/updates",
       "appReadyTimeout": 10000
 		}
 	}
