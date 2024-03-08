@@ -19,3 +19,4 @@ jobs:
 
       - name: Release
         run: bun app/release-app.js
+        working-directory: ./app
