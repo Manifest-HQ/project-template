@@ -18,4 +18,4 @@ jobs:
           bun install
 
       - name: Release
-        run: bun release.js
+        run: bun app/release-app.js
