@@ -1,4 +1,4 @@
-name: Run Prisma Migrations
+name: Release app version
 
 on:
   push:
