@@ -22,7 +22,6 @@ if (process.env.GITHUB_REPO_NAME === null || process.env.GITHUB_REPO_NAME === un
 const syncFileToSupabase = async (filePath) => {
   const contents = fs.readFileSync(filePath, 'utf8')
   const fileInfo = {
-    // updated_at: new Date().toISOString(),
     github_repo_name: process.env.GITHUB_REPO_NAME,
     file_path: filePath,
     contents,
@@ -34,7 +33,7 @@ const syncFileToSupabase = async (filePath) => {
     .from('files')
     .upsert(
       fileInfo, {
-        onConflict: 'project, file_path, branch'
+        onConflict: 'github_repo_name, file_path, branch'
       })
 
   if (error) {
