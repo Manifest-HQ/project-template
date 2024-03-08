@@ -14,8 +14,8 @@ const getFiles = (dir, filelist = []) => {
   return filelist
 }
 
-if (process.env.PROJECT_ID === null || process.env.PROJECT_ID === undefined) {
-  console.log('Please set the PROJECT_ID environment variable')
+if (process.env.GITHUB_REPO_NAME === null || process.env.GITHUB_REPO_NAME === undefined) {
+  console.log('Please set the GITHUB_REPO_NAME environment variable')
   process.exit(1)
 }
 
@@ -23,7 +23,7 @@ const syncFileToSupabase = async (filePath) => {
   const contents = fs.readFileSync(filePath, 'utf8')
   const fileInfo = {
     // updated_at: new Date().toISOString(),
-    project: process.env.PROJECT_ID,
+    github_repo_name: process.env.GITHUB_REPO_NAME,
     file_path: filePath,
     contents,
     branch: 'main' // We might want to dynamically get this
