@@ -13,9 +13,9 @@ packageJSON.version = packageJSON.version.toString()
 fs.writeFileSync('./package.json', JSON.stringify(packageJSON, null, 2))
 
 console.log('Version number increased to ' + packageJSON.version)
-// run npm run generate
+// run bun run generate
 const execPromise = new Promise((resolve, reject) => {
-  exec('npm run generate', (err, stdout, stderr) => {
+  exec('bun run generate', (err, stdout, stderr) => {
     if (err) {
       console.error(err)
       reject(err)
