@@ -2,7 +2,7 @@
 import fs from 'fs'
 import { exec } from 'child_process'
 import archiver from 'archiver'
-import supabase from '@/supabase.js'
+import supabase from '../supabase.js'
 import path from 'path'
 const startTime = Date.now()
 
