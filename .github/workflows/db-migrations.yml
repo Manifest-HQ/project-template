@@ -17,9 +17,7 @@ jobs:
         run: |
           npm ci # or use `npm install` if you don't have a lock file
 
-      - name: Run Prisma Migrations
-        run: |
-          npx prisma migrate dev --create-only
-          npx prisma migrate deploy
+      - name: Run DB Migrations
+        run: npx prisma migrate dev
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
