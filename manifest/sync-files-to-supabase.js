@@ -14,21 +14,26 @@ const getFiles = (dir, filelist = []) => {
   return filelist
 }
 
+if (process.env.PROJECT_ID === null || process.env.PROJECT_ID === undefined) {
+  console.log('Please set the PROJECT_ID environment variable')
+  process.exit(1)
+}
+
 const syncFileToSupabase = async (filePath) => {
   const contents = fs.readFileSync(filePath, 'utf8')
-  const file_info = {
+  const fileInfo = {
     // updated_at: new Date().toISOString(),
-    project: 'P-123',
+    project: process.env.PROJECT_ID,
     file_path: filePath,
     contents,
-    branch: 'main' // You might want to dynamically get this
+    branch: 'main' // We might want to dynamically get this
   }
 
   console.log(`Syncing ${filePath} to Supabase...`)
   const { data, error } = await supabase
     .from('files')
     .upsert(
-      file_info, {
+      fileInfo, {
         onConflict: 'project, file_path, branch'
       })
 

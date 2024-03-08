@@ -24,7 +24,8 @@ jobs:
         run: node manifest/add-tag-id-to-vue-files.js
 
       - name: Sync Files
-        # env:
+        env:
+          PROJECT_ID: ${{ github.repository }}
         #   SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
         #   SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: node manifest/sync-files-to-supabase.js
