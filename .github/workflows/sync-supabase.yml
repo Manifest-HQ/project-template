@@ -21,10 +21,10 @@ jobs:
           npm install node-fetch dotenv
 
       - name: Add tag-id to Vue files
-        run: node manifest/add-tag-id-to-vue-files.js
+        run: node .github/scripts/add-tag-id-to-vue-files.js
 
       - name: Sync Files
         # env:
-        # SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-        # SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        #   SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        #   SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: node manifest/sync-files-to-supabase.js

@@ -13,8 +13,12 @@ model users {
   updated_at DateTime @updatedAt
 
   name   String
-  email  String   @unique
+  email  String
   emails emails[]
+
+  phone String?
+
+  @@unique([email, phone])
 }
 
 model emails {
