@@ -8,6 +8,9 @@ on:
 jobs:
   release_app:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./app
 
     steps:
       - uses: actions/checkout@v4
@@ -18,4 +21,3 @@ jobs:
 
       - name: Release
         run: bun release-app.js
-        working-directory: ./app
