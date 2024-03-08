@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  run_migrations:
+  release_app:
     runs-on: ubuntu-latest
 
     steps:
