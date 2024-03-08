@@ -18,5 +18,5 @@ jobs:
           bun install
 
       - name: Release
-        run: bun app/release-app.js
+        run: bun release-app.js
         working-directory: ./app
