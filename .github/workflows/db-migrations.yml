@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
 
-      - name: Install Dependencies
+      - name: Install Dependencies with Bun
         run: |
-          npm ci # or use `npm install` if you don't have a lock file
+          bun install
 
-      - name: Run DB Migrations
-        run: npx prisma migrate dev
+      - name: Run DB Migrations with Bun
+        run: bun prisma migrate dev
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
