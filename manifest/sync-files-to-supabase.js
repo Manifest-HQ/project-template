@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import supabase from '@/supabase.js'
+import supabase from '../supabase.js'
 
 const getFiles = (dir, filelist = []) => {
   fs.readdirSync(dir).forEach(file => {
