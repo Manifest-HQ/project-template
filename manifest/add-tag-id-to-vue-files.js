@@ -17,7 +17,7 @@ const getFiles = (dir, filelist = []) => {
 const main = () => {
   let gitignore = fs.readFileSync('.gitignore', 'utf8').split('\n')
   gitignore = gitignore.filter(ignore => ignore.trim() !== '') // filter out empty strings
-  
+
   const allVueFiles = getFiles('.').filter(file => {
     return !gitignore.some(ignore => file.includes(ignore)) && file.endsWith('.vue')
   })
@@ -29,15 +29,15 @@ const main = () => {
 }
 
 function addMissingTagsToVueFile(file) {
-  let fileContent = fs.readFileSync(file, 'utf8')
-  
+  const fileContent = fs.readFileSync(file, 'utf8')
+
   // Extracting the <template> content
   const templateMatch = fileContent.match(/<template[^>]*>([\s\S]*?)<\/template>/)
-  if (!templateMatch) return; // If there's no <template> tag, exit the function
-  
+  if (!templateMatch) return // If there's no <template> tag, exit the function
+
   const templateContent = templateMatch[1]
   const $ = cheerio.load(templateContent, { xmlMode: true })
-  
+
   $('*').each(function addTagId() {
     if (!$(this).attr('tag-id')) {
       $(this).attr('tag-id', `tag-${generateRandomString(8)}`)
@@ -47,10 +47,10 @@ function addMissingTagsToVueFile(file) {
 
   // Reconstructing the <template> content with modifications
   const modifiedTemplateContent = `<template>${$.html()}</template>`
-  
+
   // Replacing the old <template> content with the modified one in the file content
   const modifiedFileContent = fileContent.replace(/<template[^>]*>([\s\S]*?)<\/template>/, modifiedTemplateContent)
-  
+
   fs.writeFileSync(file, modifiedFileContent)
 }
 

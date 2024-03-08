@@ -15,12 +15,12 @@ const getFiles = (dir, filelist = []) => {
 }
 
 const syncFileToSupabase = async (filePath) => {
-  const contents = fs.readFileSync(filePath, 'utf8');
+  const contents = fs.readFileSync(filePath, 'utf8')
   const file_info = {
     // updated_at: new Date().toISOString(),
     project: 'P-123',
     file_path: filePath,
-    contents: contents,
+    contents,
     branch: 'main' // You might want to dynamically get this
   }
 
@@ -36,7 +36,7 @@ const syncFileToSupabase = async (filePath) => {
     console.log(filePath)
     console.log(error)
   }
-};
+}
 
 const main = () => {
   // console.log('start')

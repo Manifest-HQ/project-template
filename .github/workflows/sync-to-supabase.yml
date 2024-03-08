@@ -21,7 +21,7 @@ jobs:
           npm install node-fetch dotenv
 
       - name: Add tag-id to Vue files
-        run: node .github/scripts/add-tag-id-to-vue-files.js
+        run: node manifest/add-tag-id-to-vue-files.js
 
       - name: Sync Files
         # env:
