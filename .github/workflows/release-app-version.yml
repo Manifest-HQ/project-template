@@ -14,8 +14,7 @@ jobs:
       - uses: oven-sh/setup-bun@v1
 
       - name: Install Dependencies with Bun
-        run: |
-          bun install
+        run: bun install
 
       - name: Release
         run: bun release-app.js
