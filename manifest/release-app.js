@@ -17,7 +17,7 @@ fs.writeFileSync('./package.json', JSON.stringify(packageJSON, null, 2));
 console.log('Version number increased to ' + packageJSON.version)
 // run bun run generate
 const execPromise = new Promise((resolve, reject) => {
-  exec('cd app && bun run generate', (err, stdout, stderr) => {
+  exec('cd app && bun i && bun run generate', (err, stdout, stderr) => {
     if (err) {
       console.error(err)
       reject(err)
