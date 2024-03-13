@@ -1,7 +1,7 @@
 <template>
   <div class="h-screen">
     <div class="pt-safe bg-zinc-100 h-full px-4">
-      hola v0.7
+      hola v0.8
     </div>
   </div>
 </template>
@@ -17,6 +17,7 @@ onMounted(() => {
 
 function initIframeMessaging() {
   document.addEventListener('click', function(event) {
+    console.log('click', event)
     // Optional: Check if the clicked element is the one you're interested in
     const tagID = event.target.getAttribute('tag-id');
     if (!tagID) return
