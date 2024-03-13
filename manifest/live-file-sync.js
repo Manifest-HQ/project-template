@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { supabaseManifestDB} from './supabase.js'
+import { supabaseManifestDB } from '../supabase.js'
 
 // on update from supabase
 // fs.writeFileSync('app/' + filePath, `${data.value}`)
