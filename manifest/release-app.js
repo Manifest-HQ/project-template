@@ -8,11 +8,34 @@ const startTime = Date.now()
 
 const packageJSON = JSON.parse(fs.readFileSync('./package.json'))
 
-// increase version number in package.json
-const versionParts = packageJSON.version.split('.').map(part => parseInt(part, 10))
-versionParts[versionParts.length - 1] += 1 // Increment the patch version
-packageJSON.version = versionParts.join('.')
-fs.writeFileSync('./package.json', JSON.stringify(packageJSON, null, 2));
+const {data, error} = await supabaseManifestSchema
+  .from('app_updates')
+  .select('*')
+  .order('created_at', { ascending: false })
+  .limit(1)
+
+let latest_version = data?.[0]?.version || '1.0.0'
+
+// Compare versions and use the higher one
+const currentVersionSegments = packageJSON.version.split('.').map(Number);
+const latestVersionSegments = latest_version.split('.').map(Number);
+for (let i = 0; i < currentVersionSegments.length; i++) {
+  if (currentVersionSegments[i] > latestVersionSegments[i]) {
+    latest_version = packageJSON.version // Current version is higher, use it
+    break
+  } else if (latestVersionSegments[i] > currentVersionSegments[i]) {
+    latest_version = latest_version // Latest version is higher, use it
+    break
+  }
+}
+
+// Only increment if the latest version from the database is being used
+if (latest_version !== packageJSON.version) {
+  const versionSegments = latest_version.split('.').map(Number)
+  versionSegments[2] += 1 // Increment the patch version
+  packageJSON.version = versionSegments.join('.')
+  fs.writeFileSync('./package.json', JSON.stringify(packageJSON, null, 2));
+} 
 
 console.log('Version number increased to ' + packageJSON.version)
 // run bun run generate
