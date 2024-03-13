@@ -1,14 +1,18 @@
 import fs from 'fs'
 import path from 'path'
-import { supabase } from '../supabase.js'
+import { supabaseManifestDB } from '../supabase.js'
 
 const getFiles = (dir, filelist = []) => {
   fs.readdirSync(dir).forEach(file => {
-    const filePath = path.join(dir, file)
-    if (fs.statSync(filePath).isDirectory()) {
-      filelist = getFiles(filePath, filelist)
-    } else {
-      filelist.push(filePath)
+    try {
+      const filePath = path.join(dir, file)
+      if (fs.statSync(filePath).isDirectory()) {
+        filelist = getFiles(filePath, filelist)
+      } else {
+        filelist.push(filePath)
+      }
+    } catch {
+      // TODO
     }
   })
   return filelist
@@ -29,7 +33,7 @@ const syncFileToSupabase = async (filePath) => {
   }
 
   console.log(`Syncing ${filePath} to Supabase...`)
-  const { data, error } = await supabase
+  const { data, error } = await supabaseManifestDB
     .from('files')
     .upsert(
       fileInfo, {
@@ -46,7 +50,7 @@ const main = () => {
   // console.log('start')
   let gitignore = fs.readFileSync('.gitignore', 'utf8').split('\n')
   gitignore = gitignore.filter(ignore => ignore.trim() !== '') // filter out empty strings
-  gitignore.push('.git/', '.lockb')
+  gitignore.push('.git/', '.lockb', 'app/.nuxt/', '.nuxt/', 'app/.output', '.output')
   gitignore.push('.jpg', '.jpeg', '.png', '.ico')
   const allFiles = getFiles('.').filter(file => {
     return !gitignore.some(ignore => file.includes(ignore))
