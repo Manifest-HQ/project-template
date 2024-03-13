@@ -1,7 +1,7 @@
 <template>
   <div class="h-screen" tag-id="tag-4F57HrTt">
     <div class="pt-safe bg-zinc-100 h-full px-4" tag-id="tag-LwLddRu5">
-      hola v0.8
+      hola v0.9
     </div>
   </div>
 </template>
