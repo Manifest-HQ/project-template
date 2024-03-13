@@ -20,4 +20,4 @@ jobs:
         run: bun install
 
       - name: Release
-        run: bun release-app.js
+        run: node manifest/release-app.js
