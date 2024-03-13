@@ -4,11 +4,15 @@ import cheerio from 'cheerio'
 
 const getFiles = (dir, filelist = []) => {
   fs.readdirSync(dir).forEach(file => {
-    const filePath = path.join(dir, file)
-    if (fs.statSync(filePath).isDirectory()) {
-      filelist = getFiles(filePath, filelist)
-    } else {
-      filelist.push(filePath)
+    try {
+      const filePath = path.join(dir, file)
+      if (fs.statSync(filePath).isDirectory()) {
+        filelist = getFiles(filePath, filelist)
+      } else {
+        filelist.push(filePath)
+      }
+    } catch {
+      // TODO handle error
     }
   })
   return filelist
@@ -22,6 +26,8 @@ const main = () => {
     return !gitignore.some(ignore => file.includes(ignore)) && file.endsWith('.vue')
   })
 
+  console.log('all vue files:', allVueFiles)
+  
   allVueFiles.forEach(file => {
     console.log(file)
     addMissingTagsToVueFile(file)

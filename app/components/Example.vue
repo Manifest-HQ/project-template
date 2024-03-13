@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div tag-id="tag-yt9C5UAL">
     This is an example
     {{ GITHUB_REPO }}
   </div>

@@ -1,3 +1,3 @@
 <template>
-  <div>index</div>
+  <div tag-id="tag-emTMqK16">index</div>
 </template>
