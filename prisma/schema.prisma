@@ -29,7 +29,7 @@ model emails {
   sender       String
   recipient_id Int
   recipient    users     @relation(fields: [recipient_id], references: [id])
-  contents     String
+  content      String
   subject      String
   read_at      DateTime?
   deleted_at   DateTime?

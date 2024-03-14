@@ -24,11 +24,11 @@ if (process.env.GITHUB_REPO_NAME === null || process.env.GITHUB_REPO_NAME === un
 }
 
 const syncFileToSupabase = async (filePath) => {
-  const contents = fs.readFileSync(filePath, 'utf8')
+  const content = fs.readFileSync(filePath, 'utf8')
   const fileInfo = {
     github_repo_name: process.env.GITHUB_REPO_NAME.split('/')[1],
     file_path: filePath,
-    contents,
+    content,
     branch: 'main' // We might want to dynamically get this
   }
 

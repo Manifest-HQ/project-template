@@ -20,5 +20,5 @@ async function handleDocumentUpdates(payload) {
   const row = payload.new
   console.log(row)
   console.log(row.file_path)
-  fs.writeFileSync(row.file_path, row.contents)
+  fs.writeFileSync(row.file_path, row.content)
 }
