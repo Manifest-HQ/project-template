@@ -23,9 +23,17 @@ jobs:
       - name: Add tag-id to Vue files
         run: node manifest/add-tag-id-to-vue-files.js
 
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "Automatically add tag-id to Vue files" || echo "No changes to commit"
+          git push
+
       - name: Sync Files
         env:
           GITHUB_REPO_NAME: ${{ github.repository }}
-        #   SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-        #   SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          # SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          # SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: node manifest/sync-files-to-supabase.js

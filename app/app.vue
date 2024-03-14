@@ -3,6 +3,9 @@
     <div class="pt-safe bg-red-100 h-full px-6" tag-id="tag-LwLddRu5">
       hola v0.9
     </div>
+    <div class="h-full">
+      test adding tag-id
+    </div>
   </div>
 </template>
 
