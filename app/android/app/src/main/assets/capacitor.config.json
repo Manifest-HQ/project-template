@@ -1,0 +1,14 @@
+{
+	"appId": "com.manifesthq.demo",
+	"appName": "manifest-app",
+	"webDir": ".output/public",
+	"server": {
+		"androidScheme": "https"
+	},
+	"plugins": {
+		"CapacitorUpdater": {
+			"updateUrl": "https://api.manifest-hq.com/updates",
+			"appReadyTimeout": 10000
+		}
+	}
+}

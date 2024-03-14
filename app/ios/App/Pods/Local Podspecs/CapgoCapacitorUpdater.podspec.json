@@ -1,0 +1,32 @@
+{
+  "name": "CapgoCapacitorUpdater",
+  "version": "5.3.11",
+  "summary": "Live update for capacitor apps",
+  "license": "MPL-2.0",
+  "homepage": "git+https://github.com/Cap-go/capacitor-updater.git",
+  "authors": "Martin Donadieu",
+  "source": {
+    "git": "git+https://github.com/Cap-go/capacitor-updater.git",
+    "tag": "5.3.11"
+  },
+  "source_files": "ios/Plugin/**/*.{swift,h,m,c,cc,mm,cpp}",
+  "platforms": {
+    "ios": "13.0"
+  },
+  "dependencies": {
+    "Capacitor": [
+
+    ],
+    "SSZipArchive": [
+
+    ],
+    "Alamofire": [
+
+    ],
+    "Version": [
+
+    ]
+  },
+  "swift_versions": "5.1",
+  "swift_version": "5.1"
+}
