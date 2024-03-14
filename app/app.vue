@@ -1,6 +1,6 @@
 <template>
   <div class="h-screen" tag-id="tag-4F57HrTt">
-    <div class="pt-safe bg-orange-100 h-full px-6" tag-id="tag-LwLddRu5">
+    <div class="pt-safe bg-purple-100 h-full px-6" tag-id="tag-LwLddRu5">
       hola v0.9
     </div>
   </div>
