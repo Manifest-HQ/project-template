@@ -3,7 +3,7 @@
     <div class="pt-safe bg-purple-100 h-full px-6" tag-id="tag-LwLddRu5">
       hola v0.9
     </div>
-    <div class="h-full">
+    <div class="h-full" tag-id="tag-DzslJVj5">
       test adding tag-id
     </div>
   </div>
