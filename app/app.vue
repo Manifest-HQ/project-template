@@ -6,6 +6,8 @@
     <div class="h-full" tag-id="tag-DzslJVj5">
       test adding tag-id
     </div>
+
+    <NuxtPage />
   </div>
 </template>
 
