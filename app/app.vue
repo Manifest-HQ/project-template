@@ -7,7 +7,7 @@
       test adding tag-id
     </div>
 
-    <NuxtPage />
+    <NuxtPage tag-id="tag-Xt3h6fyE"/>
   </div>
 </template>
 
