@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node manifest/live-file-sync.js",
     "dev": "cd app && npm run dev",
-    "dev:server": "cd app && npm i && npm run dev:server",
-    "heroku": "concurrently \"npm run server\" \"npm run dev:server\"",
-    "heroku-postbuild": "cd app && npm install",
+    "dev:server": "cd app && bun i && bun run dev:server",
+    "heroku": "concurrently \"bun run server\" \"bun run dev:server\"",
+    "heroku-postbuild": "cd app && bun install",
     "lint": "eslint ."
   },
   "author": "",
