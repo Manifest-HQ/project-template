@@ -5,10 +5,11 @@ import { supabaseManifestDB } from '../supabase.js'
 // fs.writeFileSync('app/' + filePath, `${data.value}`)
 
 console.log('started')
+console.log('Current route:', process.env.PATH)
 
 supabaseManifestDB
   .channel('document_updates')
-  .on('postgres_changes',{
+  .on('postgres_changes', {
     event: 'UPDATE',
     schema: 'public',
     table: 'files'
