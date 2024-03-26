@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: echo ${{ github.event.repository.name }}
+      - run: echo manifest-${{ github.event.repository.name }}
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: manifest-${{ github.event.repository.name }}
+          heroku_app_name: manifest-hq/manifest-${{ github.event.repository.name }}
           heroku_email: loama18@gmail.com
