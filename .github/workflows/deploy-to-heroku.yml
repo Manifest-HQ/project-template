@@ -5,7 +5,35 @@ on:
     branches:
       - main
 
+      name: Deploy to Heroku
+
+      on:
+        push:
+          branches:
+            - main
+      
 jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Heroku
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+          heroku plugins:install heroku-builds
+
+      - name: Log in to Heroku
+        run: |
+          heroku login --api-key ${{ secrets.HEROKU_TOKEN }}
+
+      - name: Deploy to Heroku
+        run: |
+          heroku git:remote -a your-heroku-app-name
+          heroku builds:create --app your-heroku-app-name
+            
+      
   deploy:
     runs-on: ubuntu-latest
     steps:
