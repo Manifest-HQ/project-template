@@ -18,8 +18,9 @@ jobs:
           heroku plugins:install heroku-builds
 
       - name: Log in to Heroku
-        run: |
-          heroku login --api-key ${{ secrets.HEROKU_TOKEN }}
+        run: heroku login
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_TOKEN }}
 
       - name: Deploy to Heroku
         run: |
