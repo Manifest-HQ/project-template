@@ -34,6 +34,12 @@ function initIframeMessaging() {
       tagName: event.target.tagName,
       innerText: event.target.innerText
     }, '*')
+
+    const htmlBody = document.body.outerHTML
+    window.parent.postMessage({
+      type: 'htmlBody',
+      htmlBody: htmlBody
+    }, '*')
   })
 }
 </script>
