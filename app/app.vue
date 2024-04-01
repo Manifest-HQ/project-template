@@ -1,6 +1,6 @@
 <template>
   <div class="h-screen" tag-id="tag-4F57HrTt">
-    <div class="pt-safe bg-purple-400 h-full px-6 ml-2" tag-id="tag-LwLddRu5">
+    <div class="pt-safe bg-blue-400 p-2" tag-id="tag-LwLddRu5">
       <div tag-id="tag-CHYIGDnb">level 1</div>
       <div tag-id="tag-H1GF8SUG">
         <span tag-id="tag-hvfmKtUz">level 2</span>
@@ -8,9 +8,18 @@
         <img src="https://via.placeholder.com/150" tag-id="tag-LbcXXuZb">
       </img></div>
     </div>
-    <div class="h-full" tag-id="tag-DzslJVj5">
+    <div class="" tag-id="tag-DzslJVj5">
       test adding tag-id
     </div>
+
+    <Accordion type="single" collapsible>
+      <AccordionItem value="item-1">
+        <AccordionTrigger>Is it accessible?</AccordionTrigger>
+        <AccordionContent>
+          Yes. It adheres to the WAI-ARIA design pattern.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
 
     <NuxtPage tag-id="tag-Xt3h6fyE"/>
   </div>
