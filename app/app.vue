@@ -12,10 +12,10 @@
       test adding tag-id
     </div>
 
-    <Accordion type="single" collapsible>
-      <AccordionItem value="item-1">
-        <AccordionTrigger>Is it accessible?</AccordionTrigger>
-        <AccordionContent>
+    <Accordion type="single" collapsible="" tag-id="tag-XcsQEwvC">
+      <AccordionItem value="item-1" tag-id="tag-jmGpXcGA">
+        <AccordionTrigger tag-id="tag-xqMsLm7M">Is it accessible?</AccordionTrigger>
+        <AccordionContent tag-id="tag-CscHsiCN">
           Yes. It adheres to the WAI-ARIA design pattern.
         </AccordionContent>
       </AccordionItem>

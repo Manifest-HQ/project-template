@@ -15,10 +15,7 @@ const forwardedProps = useForwardProps(delegatedProps)
 </script>
 
 <template>
-  <AccordionItem
-    v-bind="forwardedProps"
-    :class="cn('border-b', props.class)"
-  >
-    <slot />
+  <AccordionItem v-bind="forwardedProps" :class="cn(&apos;border-b&apos;, props.class)" tag-id="tag-hpwtyvhn">
+    <slot tag-id="tag-4FulwbIT"/>
   </AccordionItem>
 </template>
