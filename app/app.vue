@@ -43,7 +43,7 @@ function initIframeMessaging() {
     const htmlBody = document.body
     window.parent.postMessage({
       type: 'htmlBody',
-      htmlBody: htmlBody
+      htmlBody: htmlBody.innerHTML
     }, '*')
   })
 }
