@@ -6,6 +6,9 @@ const getFiles = (dir, filelist = []) => {
   fs.readdirSync(dir).forEach(file => {
     try {
       const filePath = path.join(dir, file)
+      if (filePath.includes('components/ui')) {
+        return
+      }
       if (fs.statSync(filePath).isDirectory()) {
         filelist = getFiles(filePath, filelist)
       } else {
@@ -27,7 +30,7 @@ const main = () => {
   })
 
   console.log('all vue files:', allVueFiles)
-  
+
   allVueFiles.forEach(file => {
     console.log(file)
     addMissingTagsToVueFile(file)

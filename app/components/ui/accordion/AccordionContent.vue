@@ -13,9 +13,9 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <AccordionContent v-bind="delegatedProps" class="overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down" tag-id="tag-xa4mG5Qm">
-    <div :class="cn(&apos;pb-4 pt-0&apos;, props.class)" tag-id="tag-1XTtdhQ4">
-      <slot tag-id="tag-uXSnPKkx"/>
+  <AccordionContent v-bind="delegatedProps" class="overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
+    <div :class="cn(&apos;pb-4 pt-0&apos;, props.class)">
+      <slot />
     </div>
   </AccordionContent>
 </template>
