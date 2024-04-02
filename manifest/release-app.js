@@ -81,13 +81,13 @@ process.exit(0)
 function compress() {
   return new Promise((resolve, reject) => {
     // compress .output/public folder
-    const outputPath = path.join(process.cwd(), 'app/.output', `${packageJSON.version}.zip`)
+    const outputPath = path.join('app/.output', `${packageJSON.version}.zip`)
     const output = fs.createWriteStream(outputPath)
     const archive = archiver('zip', {
       zlib: { level: 9 }
     })
     archive.pipe(output)
-    archive.directory(path.join(process.cwd(), 'app/.output/public/'), '')
+    archive.directory(path.join('app/.output/public/'), false)
     archive.finalize()
 
     output.on('close', function() {
