@@ -8,7 +8,7 @@ const startTime = Date.now()
 
 const packageJSON = JSON.parse(fs.readFileSync('./package.json'))
 
-const {data, error} = await supabaseManifestSchema
+const { data, error } = await supabaseManifestSchema
   .from('app_updates')
   .select('*')
   .order('created_at', { ascending: false })
@@ -17,8 +17,8 @@ const {data, error} = await supabaseManifestSchema
 let latest_version = data?.[0]?.version || '1.0.0'
 
 // Compare versions and use the higher one
-const currentVersionSegments = packageJSON.version.split('.').map(Number);
-const latestVersionSegments = latest_version.split('.').map(Number);
+const currentVersionSegments = packageJSON.version.split('.').map(Number)
+const latestVersionSegments = latest_version.split('.').map(Number)
 for (let i = 0; i < currentVersionSegments.length; i++) {
   if (currentVersionSegments[i] > latestVersionSegments[i]) {
     latest_version = packageJSON.version // Current version is higher, use it
@@ -34,8 +34,8 @@ if (latest_version !== packageJSON.version) {
   const versionSegments = latest_version.split('.').map(Number)
   versionSegments[2] += 1 // Increment the patch version
   packageJSON.version = versionSegments.join('.')
-  fs.writeFileSync('./package.json', JSON.stringify(packageJSON, null, 2));
-} 
+  fs.writeFileSync('./package.json', JSON.stringify(packageJSON, null, 2))
+}
 
 console.log('Version number increased to ' + packageJSON.version)
 // run bun run generate
@@ -81,12 +81,12 @@ process.exit(0)
 function compress() {
   return new Promise((resolve, reject) => {
     // compress .output/public folder
-    const output = fs.createWriteStream(`./app/.output/${packageJSON.version}.zip`)
+    const output = fs.createWriteStream(`@/app/.output/${packageJSON.version}.zip`)
     const archive = archiver('zip', {
       zlib: { level: 9 }
     })
     archive.pipe(output)
-    archive.directory('./app/.output/public/', false)
+    archive.directory('@/app/.output/public/', false)
     archive.finalize()
 
     output.on('close', function() {
@@ -109,7 +109,7 @@ async function uploadToSupabaseStorage() {
 
     const { data, error } = await supabase
       .storage
-      .from(`app_updates/`)
+      .from('app_updates/')
       .upload(`${packageJSON.version}.zip`, file)
 
     if (error) {
@@ -131,7 +131,6 @@ async function createBucket() {
     console.error('Error creating bucket:', error.message)
     if (error.message.includes('already exists')) {
       console.log('Bucket already exists, does not need to be created')
-      return
     } else {
       throw new Error(error.message)
     }
@@ -141,7 +140,7 @@ async function createBucket() {
 }
 
 async function updateSupabaseDB() {
-  const {data, error} = await supabaseManifestSchema
+  const { data, error } = await supabaseManifestSchema
     .from('app_updates')
     .insert([{
       version: packageJSON.version,
