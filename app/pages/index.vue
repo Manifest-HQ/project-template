@@ -11,12 +11,11 @@
     test adding tag-id
   </div>
 
-  <Accordion type="single" tag-id="tag-XcsQEwvC">
-    <AccordionItem value="item-1" tag-id="tag-jmGpXcGA">
-      <AccordionTrigger tag-id="tag-xqMsLm7M">Is it accessible?</AccordionTrigger>
-      <AccordionContent tag-id="tag-CscHsiCN">
-        Yes. It adheres to the WAI-ARIA design pattern.
-      </AccordionContent>
-    </AccordionItem>
-  </Accordion>
+  {{ infoStore.tables }}
 </template>
+
+<script setup>
+import { useStoreInfo } from '@/stores/Info'
+
+const infoStore = useStoreInfo()
+</script>

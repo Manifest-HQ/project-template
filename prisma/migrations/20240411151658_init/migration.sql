@@ -5,6 +5,7 @@ CREATE TABLE "users" (
     "updated_at" TIMESTAMP(3) NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
+    "phone" TEXT,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
@@ -16,7 +17,7 @@ CREATE TABLE "emails" (
     "updated_at" TIMESTAMP(3) NOT NULL,
     "sender" TEXT NOT NULL,
     "recipient_id" INTEGER NOT NULL,
-    "contents" TEXT NOT NULL,
+    "content" TEXT NOT NULL,
     "subject" TEXT NOT NULL,
     "read_at" TIMESTAMP(3),
     "deleted_at" TIMESTAMP(3),
@@ -25,7 +26,7 @@ CREATE TABLE "emails" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+CREATE UNIQUE INDEX "users_email_phone_key" ON "users"("email", "phone");
 
 -- AddForeignKey
 ALTER TABLE "emails" ADD CONSTRAINT "emails_recipient_id_fkey" FOREIGN KEY ("recipient_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
