@@ -11,7 +11,7 @@
     test adding tag-id
   </div>
 
-  <div v-for="user in storeInfo.tables?.users" :key="user.id">
+  <div v-for="user in storeInfo.tables?.users" :key="user.id" tag-id="tag-qnGTjzJT">
     {{ user }}
   </div>
 </template>
