@@ -15,10 +15,21 @@
     "android:open": "npm run generate && npx cap sync && npx cap open android"
   },
   "dependencies": {
+    "@capacitor-community/app-icon": "^4.1.1",
+    "@capacitor-community/speech-recognition": "^5.1.0",
     "@capacitor/android": "^5.4.2",
+    "@capacitor/browser": "^5.2.0",
+    "@capacitor/camera": "^5.0.9",
+    "@capacitor/clipboard": "^5.0.7",
     "@capacitor/core": "^5.5.0",
-    "@capacitor/filesystem": "^5.1.4",
+    "@capacitor/device": "^5.0.7",
+    "@capacitor/dialog": "^5.0.7",
+    "@capacitor/filesystem": "^5.2.1",
+    "@capacitor/geolocation": "^5.0.7",
     "@capacitor/ios": "^5.5.0",
+    "@capacitor/preferences": "^5.0.7",
+    "@capacitor/share": "^5.0.7",
+    "@capacitor/toast": "^5.0.7",
     "@capgo/capacitor-updater": "^5.3.11",
     "@headlessui/vue": "^1.7.16",
     "@nuxt/devtools": "latest",
@@ -46,5 +57,5 @@
     "eslint-plugin-vue": "^9.17.0",
     "path": "^0.12.7"
   },
-  "version": "1.0.39"
+  "version": "6.0.39"
 }
