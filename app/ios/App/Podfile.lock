@@ -1,11 +1,11 @@
 PODS:
   - Alamofire (5.8.0)
-  - Capacitor (5.4.2):
+  - Capacitor (5.7.2):
     - CapacitorCordova
-  - CapacitorCordova (5.4.2)
-  - CapacitorFilesystem (5.1.4):
+  - CapacitorCordova (5.7.2)
+  - CapacitorFilesystem (5.2.1):
     - Capacitor
-  - CapgoCapacitorUpdater (5.3.11):
+  - CapgoCapacitorUpdater (5.6.11):
     - Alamofire
     - Capacitor
     - SSZipArchive
@@ -37,10 +37,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 0e92e751b3e9e66d7982db43919d01f313b8eb91
-  Capacitor: 8a9db42d105f55843cd8ed2a3cb54e2b78e7f102
-  CapacitorCordova: cfcc06b698481da655415985eeb2b8da363f8451
-  CapacitorFilesystem: af704badfbc69f6f8623d9ed313e5490e3723dcb
-  CapgoCapacitorUpdater: 0dacd32c11f7e60425ba7d70e71a7e6a663b4c00
+  Capacitor: fc7ef6d935eafb0df9eaaf109ca69be16c51a2d2
+  CapacitorCordova: 70b13b8fddb6f35d8adcfe06cb5045c07f35f6de
+  CapacitorFilesystem: 9f3e3c7fea2fff12f46dd5b07a2914f2103e4cfc
+  CapgoCapacitorUpdater: 4a4ef200546a54ac2c6aeaddad8530d4e4141acd
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
   Version: de5907f2c5d0f3cf21708db7801d1d5401139486
 
