@@ -11,11 +11,13 @@
     test adding tag-id
   </div>
 
-  {{ infoStore.tables }}
+  <div v-for="user in storeInfo.tables?.users" :key="user.id">
+    {{ user }}
+  </div>
 </template>
 
 <script setup>
 import { useStoreInfo } from '@/stores/Info'
 
-const infoStore = useStoreInfo()
+const storeInfo = useStoreInfo()
 </script>
