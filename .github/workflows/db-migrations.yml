@@ -18,7 +18,7 @@ jobs:
           bun install
 
       - name: Run DB Migrations with Bun
-        run: bun prisma migrate dev
+        run: bun prisma migrate deploy
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
       
