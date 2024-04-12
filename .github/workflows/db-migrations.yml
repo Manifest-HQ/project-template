@@ -22,6 +22,11 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
       
+      - name: Enable Realtime on All Tables
+        run: psql $DATABASE_URL -f .github/workflows/enable_realtime.sql
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
       - name: Commit Migrations
         run: |
           git config --global user.name 'GitHub Actions'
