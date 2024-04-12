@@ -23,7 +23,7 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
       
       - name: Enable Realtime on All Tables
-        run: psql $DATABASE_URL -f ./manifest/enable_realtime.sql
+        run: psql $DATABASE_URL -f enable_realtime.sql
         working-directory: ./manifest
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
