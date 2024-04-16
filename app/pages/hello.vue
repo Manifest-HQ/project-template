@@ -1,3 +1,3 @@
 <template>
-  <div>hello</div>
+  <div tag-id="tag-sxlxsFpN">hello</div>
 </template>
