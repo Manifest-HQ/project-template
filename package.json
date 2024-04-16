@@ -36,6 +36,9 @@
     "fs": "^0.0.1-security",
     "path": "^0.12.7"
   },
+  "optionalDependencies": {
+    "@rollup/rollup-darwin-x64": "4.14.2"
+  },
   "engines": {
     "node": "20"
   },
