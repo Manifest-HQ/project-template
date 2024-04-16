@@ -37,7 +37,7 @@
     "path": "^0.12.7"
   },
   "optionalDependencies": {
-    "@oxc-parser/binding-linux-x64-gnu": "0.8.0",
+    "@oxc-parser/binding-linux-x64-gnu": "0.7.0",
     "@rollup/rollup-linux-x64-gnu": "4.14.3"
   },
   "engines": {
