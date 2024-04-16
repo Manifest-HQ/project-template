@@ -1,1 +1,1 @@
-web: npm run heroku
+web: npm i g @rollup/rollup-linux-x64-gnu && npm run heroku
