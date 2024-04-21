@@ -16,5 +16,3 @@ jobs:
           heroku_app_name: manifest-${{ github.event.repository.name }}
           heroku_email: loama18@gmail.com
           team: manifest-hq
-      - run: heroku git:remote -a manifest-${{ github.event.repository.name }}
-      - run: git push heroku main
