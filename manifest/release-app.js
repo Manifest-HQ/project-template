@@ -52,7 +52,7 @@ const execPromise = new Promise((resolve, reject) => {
 })
 
 const timeoutPromise = new Promise((resolve) => {
-  setTimeout(resolve, 10000, 'timeout')
+  setTimeout(resolve, 20000, 'timeout')
 })
 const raceResult = await Promise.race([execPromise, timeoutPromise])
 if (raceResult === 'timeout') {
