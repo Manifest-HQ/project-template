@@ -1,0 +1,18 @@
+{
+  "functions": {
+    "source": "functions/**/*.js",
+    "runtime": "edge"
+  },
+  "builds": [
+    {
+      "src": "functions/**/*.js",
+      "use": "@vercel/edge-functions"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/functions/$1"
+    }
+  ]
+}
