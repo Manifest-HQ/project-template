@@ -1,18 +1,12 @@
 {
-  "functions": {
-    "source": "functions/**/*.js",
-    "runtime": "edge"
-  },
-  "builds": [
-    {
-      "src": "functions/**/*.js",
-      "use": "@vercel/edge-functions"
-    }
-  ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/functions/$1"
+      "src": "/functions/(.*)",
+      "dest": "/functions/$1.js"
     }
-  ]
+  ],
+  "buildCommand": "cd app && npm run generate",
+  "outputDirectory": "app/.output/public",
+  "installCommand": "cd app && npm install",
+  "framework": "nuxtjs"
 }
