@@ -14,9 +14,8 @@ jobs:
       - uses: oven-sh/setup-bun@v1
 
       - name: Check commit message for migration trigger
-          id: check_message
-          run: |
-            echo "MIGRATION_NEEDED=$(git log -1 --pretty=%B | grep -q 'DB-MIGRATE-MANIFEST' && echo 'true' || echo 'false')" >> $GITHUB_ENV
+        run: |
+          echo "MIGRATION_NEEDED=$(git log -1 --pretty=%B | grep -q 'DB-MIGRATE-MANIFEST' && echo 'true' || echo 'false')" >> $GITHUB_ENV
 
       - name: Install Dependencies with Bun
         run: |
@@ -27,7 +26,7 @@ jobs:
         if: env.MIGRATION_NEEDED == 'false'
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      
+
       - name: Run DB Migrations with Bun
         run: bun prisma migrate dev --name ${{ github.run_id }}
         if: env.MIGRATION_NEEDED == 'true'
