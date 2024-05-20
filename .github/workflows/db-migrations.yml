@@ -21,6 +21,11 @@ jobs:
         run: |
           bun install
 
+      - name: Pull latest changes
+        run: |
+          git config pull.rebase false
+          git pull
+
       - name: Run DB Migrations with Bun
         run: bun prisma migrate deploy
         if: env.MIGRATION_NEEDED == 'false'
