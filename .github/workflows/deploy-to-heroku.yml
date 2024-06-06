@@ -22,3 +22,4 @@ jobs:
           heroku_app_name: ${{ env.REPO_NAME }}
           heroku_email: loama18@gmail.com
           team: manifest-hq
+          buildpack: 'https://github.com/jakeg/heroku-buildpack-bun'
