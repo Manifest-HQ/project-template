@@ -24,6 +24,7 @@
     "@nuxt/devtools": "latest",
     "@nuxtjs/tailwindcss": "^6.8.0",
     "@pinia/nuxt": "^0.5.1",
+    "@supabase/supabase-js": "^2.39.7",
     "@radix-icons/vue": "^1.0.0",
     "@vueuse/core": "^10.10.0",
     "clsx": "^2.1.0",
@@ -52,5 +53,8 @@
     "eslint-plugin-vue": "^9.17.0",
     "path": "^0.12.7"
   },
-  "version": "1.0.39"
+  "version": "1.0.39",
+  "engines": {
+    "node": "20"
+  }
 }
