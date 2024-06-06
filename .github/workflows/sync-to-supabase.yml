@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - '*' # Run on all branches
+  workflow_run:
+    workflows: ['Run Prisma Migrations']
+    types:
+      - completed
 
 jobs:
   sync-to-supabase:
