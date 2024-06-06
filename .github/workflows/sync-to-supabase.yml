@@ -1,8 +1,8 @@
 name: Sync Files to Supabase
 on:
   push:
-    branches:
-      - '*' # Run on all branches
+    branches-ignore:
+      - main # Ignore pushes to main branch
   workflow_run:
     workflows: ['Run Prisma Migrations']
     types:
