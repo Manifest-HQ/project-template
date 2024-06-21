@@ -13,22 +13,28 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v1
 
-      - name: Check commit message for migration trigger
+      - name: Fetch all history for comparison
+        run: git fetch --depth=2
+
+      - name: Print diff
+        run: git diff --name-only HEAD^ HEAD
+  
+      - name: Check if file is modified
+        id: check_file
         run: |
-          echo "MIGRATION_NEEDED=$(git log -1 --pretty=%B | grep -q 'DB-MIGRATE-MANIFEST' && echo 'true' || echo 'false')" >> $GITHUB_ENV
+          # Check if the file has been modified
+          if git diff --name-only HEAD^ HEAD | grep -q 'prisma/schema.prisma'; then
+            echo "MIGRATION_NEEDED=true" >> $GITHUB_ENV
+          else
+            echo "MIGRATION_NEEDED=false" >> $GITHUB_ENV
+          fi
 
       - name: Install Dependencies with Bun
         run: |
           bun install
 
       - name: Run DB Migrations with Bun
-        run: bun prisma migrate deploy
-        if: env.MIGRATION_NEEDED == 'false'
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-
-      - name: Run DB Migrations with Bun
-        run: bun prisma migrate dev --name ${{ github.run_id }}
+        run: bun prisma db push --accept-data-loss
         if: env.MIGRATION_NEEDED == 'true'
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
