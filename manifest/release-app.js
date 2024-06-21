@@ -7,6 +7,7 @@ import path from 'path'
 const startTime = Date.now()
 
 const packageJSON = JSON.parse(fs.readFileSync('./package.json'))
+const capacitorJSON = JSON.parse(fs.readFileSync('./app/capacitor.config.json'))
 
 const { data, error } = await supabaseManifestDB
   .from('app_updates')
@@ -166,6 +167,7 @@ async function updateSupabaseDB() {
   const { data, error } = await supabaseManifestDB.from('app_updates').insert([
     {
       project_id: packageJSON.name,
+      app_id: capacitorJSON.appId,
       version: latest_version,
       ios: true,
       android: true,
