@@ -7,7 +7,7 @@
   },
   "plugins": {
 		"CapacitorUpdater": {
-			"updateUrl": "https://api.manifest-hq.com/updates{}",
+			"updateUrl": "https://api.manifest-hq.com/updates",
       "appReadyTimeout": 10000
 		}
 	}
