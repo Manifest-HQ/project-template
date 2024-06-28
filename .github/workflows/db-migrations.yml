@@ -13,13 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v1
 
-      - name: Fetch all history for comparison
-        run: git fetch --depth=2
-
-      - name: Print diff
-        run: git diff --name-only HEAD^ HEAD
-
-      - name: Check if file is modified or first commit
+      - name: Check if schema.prisma is modified or first commit
         id: check_file
         run: |
           # Check if this is the first commit or if the Prisma schema file has been modified
