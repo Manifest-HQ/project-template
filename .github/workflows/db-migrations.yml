@@ -18,12 +18,12 @@ jobs:
 
       - name: Print diff
         run: git diff --name-only HEAD^ HEAD
-  
-      - name: Check if file is modified
+
+      - name: Check if file is modified or first commit
         id: check_file
         run: |
-          # Check if the file has been modified
-          if git diff --name-only HEAD^ HEAD | grep -q 'prisma/schema.prisma'; then
+          # Check if this is the first commit or if the Prisma schema file has been modified
+          if [ $(git rev-list --count HEAD) -eq 1 ] || git diff --name-only HEAD^ HEAD | grep -q 'prisma/schema.prisma'; then
             echo "MIGRATION_NEEDED=true" >> $GITHUB_ENV
           else
             echo "MIGRATION_NEEDED=false" >> $GITHUB_ENV
@@ -33,7 +33,13 @@ jobs:
         run: |
           bun install
 
-      - name: Run DB Migrations with Bun
+      - name: Run DB Migrate with Bun
+        run: bun prisma db migrate deploy --accept-data-loss
+        if: env.MIGRATION_NEEDED == 'true'
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Run DB Push with Bun
         run: bun prisma db push --accept-data-loss
         if: env.MIGRATION_NEEDED == 'true'
         env:
