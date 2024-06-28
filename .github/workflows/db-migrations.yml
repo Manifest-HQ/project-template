@@ -28,7 +28,7 @@ jobs:
           bun install
 
       - name: Run DB Migrate with Bun
-        run: bun prisma db migrate deploy --accept-data-loss
+        run: bun prisma migrate deploy --accept-data-loss
         if: env.MIGRATION_NEEDED == 'true'
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
