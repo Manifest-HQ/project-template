@@ -10,13 +10,13 @@
     test adding tag-id
   </div>
 
-  <div v-for="user in storeInfo.tables?.users" :key="user.id" tag-id="tag-qnGTjzJT">
+  <div v-for="user in storeDB.tables?.users" :key="user.id" tag-id="tag-qnGTjzJT">
     {{ user }}
   </div>
 </template>
 
 <script setup>
-import { useStoreInfo } from '@/stores/Info'
+import { useStoreDB } from '@/stores/DB'
 
-const storeInfo = useStoreInfo()
+const storeDB = useStoreDB()
 </script>

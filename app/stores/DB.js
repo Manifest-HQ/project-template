@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import supabase from '../supabase'
 
-export const useStoreInfo = defineStore('Info', () => {
+export const useStoreDB = defineStore('DB', () => {
   const tables = ref({})
 
   async function loadTables() {
@@ -25,7 +25,8 @@ export const useStoreInfo = defineStore('Info', () => {
 
   loadTables()
 
-  supabase.channel('custom-all-channel')
+  supabase
+    .channel('custom-all-channel')
     .on(
       'postgres_changes',
       { event: '*', schema: 'public', table: '*' },
@@ -38,26 +39,31 @@ export const useStoreInfo = defineStore('Info', () => {
             case 'INSERT':
               tables.value[payload.table].push(payload.new)
               break
-            
+
             case 'UPDATE':
               const tableRecords = tables.value[payload.table]
-              const updatedRecordIndex = tableRecords.findIndex(record => record.id === payload.new.id)
+              const updatedRecordIndex = tableRecords.findIndex(
+                (record) => record.id === payload.new.id
+              )
               if (updatedRecordIndex !== -1) {
-                tables.value[payload.table][updatedRecordIndex] = payload.new;
+                tables.value[payload.table][updatedRecordIndex] = payload.new
               }
               break
-            
+
             case 'DELETE':
-              const deleteRecordIndex = tables.value[payload.table].findIndex(record => record.id === payload.old.id);
+              const deleteRecordIndex = tables.value[payload.table].findIndex(
+                (record) => record.id === payload.old.id
+              )
               if (deleteRecordIndex !== -1) {
-                tables.value[payload.table].splice(deleteRecordIndex, 1);
+                tables.value[payload.table].splice(deleteRecordIndex, 1)
               }
               break
           }
         } catch (error) {
           console.error('Error processing change:', error)
         }
-    })
+      }
+    )
     .subscribe()
 
   return { tables }
