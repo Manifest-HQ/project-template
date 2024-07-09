@@ -1,12 +1,8 @@
 name: Sync Files to Supabase
 on:
   push:
-    branches-ignore:
-      - main # Ignore pushes to main branch
-  workflow_run:
-    workflows: ['Run Prisma Migrations']
-    types:
-      - completed
+    branches:
+      - '*'
 
 jobs:
   sync-to-supabase:
@@ -20,20 +16,21 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Check commit message for tags trigger
+      - name: Check commit message
         run: |
-          echo "TAGS_NO_NEEDED=$(git log -1 --pretty=%B | grep -q 'DONT-ADD-TAGS' && echo 'true' || echo 'false')" >> $GITHUB_ENV
+          echo "SKIP_ACTION=$(git log -1 --pretty=%B | grep -q 'ADD TAGS' && echo 'true' || echo 'false')" >> $GITHUB_ENV
 
       - name: Install dependencies
+        if: env.SKIP_ACTION == 'false'
         run: |
           npm install node-fetch dotenv
 
       - name: Add tag-id to Vue files
-        if: env.TAGS_NO_NEEDED == 'false'
+        if: env.SKIP_ACTION == 'false'
         run: node manifest/add-tag-id-to-vue-files.js
 
       - name: Commit changes
-        if: env.TAGS_NO_NEEDED == 'false'
+        if: env.SKIP_ACTION == 'false'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -42,8 +39,9 @@ jobs:
           git push
 
       - name: Sync Files
+        if: env.SKIP_ACTION == 'false'
         env:
           GITHUB_REPO_NAME: ${{ github.repository }}
-          # SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          # SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: node manifest/sync-files-to-supabase.js

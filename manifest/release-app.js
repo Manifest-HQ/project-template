@@ -2,13 +2,14 @@
 import fs from 'fs'
 import { exec } from 'child_process'
 import archiver from 'archiver'
-import { supabase, supabaseManifestSchema } from '../supabase.js'
+import { supabase, supabaseManifestDB } from '../supabase.js'
 import path from 'path'
 const startTime = Date.now()
 
 const packageJSON = JSON.parse(fs.readFileSync('./package.json'))
+const capacitorJSON = JSON.parse(fs.readFileSync('./app/capacitor.config.json'))
 
-const { data, error } = await supabaseManifestSchema
+const { data, error } = await supabaseManifestDB
   .from('app_updates')
   .select('*')
   .order('created_at', { ascending: false })
@@ -19,21 +20,26 @@ let latest_version = data?.[0]?.version || '1.0.0'
 // Compare versions and use the higher one
 const currentVersionSegments = packageJSON.version.split('.').map(Number)
 const latestVersionSegments = latest_version.split('.').map(Number)
+
+console.log(currentVersionSegments, latestVersionSegments)
+
+let updated = false
 for (let i = 0; i < currentVersionSegments.length; i++) {
   if (currentVersionSegments[i] > latestVersionSegments[i]) {
     latest_version = packageJSON.version // Current version is higher, use it
-    break
-  } else if (latestVersionSegments[i] > currentVersionSegments[i]) {
-    latest_version = latest_version // Latest version is higher, use it
+    updated = true
     break
   }
 }
+if (!updated) {
+  const lastDigitVersion =
+    latestVersionSegments[latestVersionSegments.length - 1] + 1
+  latest_version =
+    latestVersionSegments.slice(0, -1).join('.') + '.' + lastDigitVersion
+}
 
-// Only increment if the latest version from the database is being used
 if (latest_version !== packageJSON.version) {
-  const versionSegments = latest_version.split('.').map(Number)
-  versionSegments[2] += 1 // Increment the patch version
-  packageJSON.version = versionSegments.join('.')
+  packageJSON.version = latest_version
   fs.writeFileSync('./package.json', JSON.stringify(packageJSON, null, 2))
 }
 
@@ -86,17 +92,20 @@ function compress() {
     const archive = archiver('zip', {
       zlib: { level: 9 }
     })
+    console.log(output)
     archive.pipe(output)
     archive.directory(path.join('app/.output/public/'), false)
     archive.finalize()
 
-    output.on('close', function() {
+    output.on('close', function () {
       console.log(`Size of file: ${parseInt(archive.pointer() / 1024)} kb`)
-      console.log('archiver has been finalized and the output file descriptor has closed.')
+      console.log(
+        'archiver has been finalized and the output file descriptor has closed.'
+      )
       resolve()
     })
 
-    output.on('error', function(err) {
+    output.on('error', function (err) {
       reject(err)
     })
   })
@@ -105,11 +114,13 @@ function compress() {
 async function uploadToSupabaseStorage() {
   // upload the .zip to supabase storage
   try {
-    const filePath = path.join(process.cwd(), `./app/.output/${packageJSON.version}.zip`)
+    const filePath = path.join(
+      process.cwd(),
+      `./app/.output/${packageJSON.version}.zip`
+    )
     const file = await fs.promises.readFile(filePath)
 
-    const { data, error } = await supabase
-      .storage
+    const { data, error } = await supabase.storage
       .from('app_updates/')
       .upload(`${packageJSON.version}.zip`, file)
 
@@ -141,13 +152,28 @@ async function createBucket() {
 }
 
 async function updateSupabaseDB() {
-  const { data, error } = await supabaseManifestSchema
-    .from('app_updates')
-    .insert([{
-      version: packageJSON.version,
+  console.log('Updating Supabase DB', packageJSON.version, true, true)
+  console.log('packageJSON.name', latest_version)
+
+  const { data: projectData, error: projectError } = await supabaseManifestDB
+    .from('projects')
+    .select('*')
+    .eq('id', packageJSON.name)
+  if (projectError) {
+    console.error('Error getting project:', projectError.message)
+    throw new Error(projectError.message)
+  }
+  console.log('projectData', projectData[0].supabase_url)
+  const { data, error } = await supabaseManifestDB.from('app_updates').insert([
+    {
+      project_id: packageJSON.name,
+      app_id: capacitorJSON.appId,
+      version: latest_version,
       ios: true,
-      android: true
-    }])
+      android: true,
+      zip_url: `${projectData[0].supabase_url}/storage/v1/object/public/app_updates/${latest_version}.zip`
+    }
+  ])
 
   console.log('data', data)
   if (error) {
