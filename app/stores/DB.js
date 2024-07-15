@@ -14,7 +14,6 @@ export const useStoreDB = defineStore('DB', () => {
       loadTablesFromPreferences();
       console.log('test loadTablesFromPreferences',tables.value)
     } else {
-      alert('The connection has been restored.');
       loadTables();
     }
   });
