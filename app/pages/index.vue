@@ -10,9 +10,6 @@
     test adding tag-id
   </div>
 
-  <div v-for="user in storeDB.tables?.users" :key="user.id" tag-id="tag-qnGTjzJT">
-    {{ user }}
-  </div>
 </template>
 
 <script setup>

@@ -19,6 +19,8 @@
     "@capacitor/core": "^5.5.0",
     "@capacitor/filesystem": "^5.1.4",
     "@capacitor/ios": "^5.5.0",
+    "@capacitor/network": "^5.0.8",
+    "@capacitor/preferences": "^5.0.8",
     "@capgo/capacitor-updater": "^5.3.11",
     "@headlessui/vue": "^1.7.16",
     "@nuxt/devtools": "latest",
