@@ -1,9 +1,40 @@
 import { defineStore } from 'pinia'
 import supabase from '../supabase'
+import { Network } from '@capacitor/network';
+import { Preferences } from '@capacitor/preferences';
 
 export const useStoreDB = defineStore('DB', () => {
   const tables = ref({})
+  const network = ref(true)
 
+  Network.addListener('networkStatusChange', status => {
+    network.value = status.connected
+    if (!network.value){
+      alert('You have no internet connection. If you continue, the data will not be saved.');
+      loadTablesFromPreferences();
+      console.log('test loadTablesFromPreferences',tables.value)
+    } else {
+      loadTables();
+    }
+  });
+
+  async function saveTableToPreferences(tableName, data) {
+    const jsonData = JSON.stringify(data);
+    await Preferences.set({
+      key: tableName,
+      value: jsonData
+    });
+  }
+
+  async function loadTablesFromPreferences() {
+    const { keys } = await Preferences.keys();
+    for (let key of keys) {
+      const { value } = await Preferences.get({ key });
+      if (value) {
+        tables.value[key] = JSON.parse(value);
+      }
+    }
+  }
   async function loadTables() {
     const { data: public_tables, error } = await supabase
       .from('public_tables')
@@ -17,6 +48,7 @@ export const useStoreDB = defineStore('DB', () => {
         const info = await loadTableInfo(record.table_name)
         console.log('record', record)
         tables.value[record.table_name] = info
+        await saveTableToPreferences(record.table_name, info);
       }
 
       console.log(tables)
@@ -59,6 +91,7 @@ export const useStoreDB = defineStore('DB', () => {
               }
               break
           }
+          saveTableToPreferences(payload.table, tables.value[payload.table]);
         } catch (error) {
           console.error('Error processing change:', error)
         }
