@@ -44,4 +44,5 @@ jobs:
           GITHUB_REPO_NAME: ${{ github.repository }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-        run: node manifest/sync-files-to-supabase.js
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: node manifest/sync-files-to-supabase.js $BRANCH_NAME
