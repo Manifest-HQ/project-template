@@ -1,4 +1,4 @@
-package com.manifesthq.demo;
+package com.manifest.app;
 
 import com.getcapacitor.BridgeActivity;
 
