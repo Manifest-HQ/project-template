@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "src": "/functions/(.*)",
+      "dest": "/functions/$1.js"
+    }
+  ],
+  "buildCommand": "cd app && npm run generate",
+  "outputDirectory": "app/.output/public",
+  "installCommand": "cd app && npm install",
+  "framework": "nuxtjs"
+}

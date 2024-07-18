@@ -9,13 +9,22 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+
+      - name: Set lowercase repo name
+        id: repo_name
+        run: echo "REPO_NAME=$(echo '${{ github.event.repository.name }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
+      - uses: oven-sh/setup-bun@v1
+      - name: Install Bun
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+          export BUN_INSTALL="$HOME/.bun"
+          export PATH="$BUN_INSTALL/bin:$PATH"
       - uses: akhileshns/heroku-deploy@v3.13.15
         with:
           heroku_api_key: ${{ secrets.HEROKU_TOKEN }}
-          heroku_app_name: manifest-${{ github.event.repository.name }}
+          heroku_app_name: ${{ env.REPO_NAME }}
           heroku_email: loama18@gmail.com
           team: manifest-hq
-          justlogin: true
-      - run: heroku git:remote -a manifest-${{ github.event.repository.name }}
-      - run: git push heroku main
+          buildpack: 'https://github.com/jakeg/heroku-buildpack-bun'

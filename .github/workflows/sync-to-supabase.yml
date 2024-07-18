@@ -2,7 +2,7 @@ name: Sync Files to Supabase
 on:
   push:
     branches:
-      - "*" # Run on all branches
+      - '*'
 
 jobs:
   sync-to-supabase:
@@ -14,16 +14,23 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: '20'
+
+      - name: Check commit message
+        run: |
+          echo "SKIP_ACTION=$(git log -1 --pretty=%B | grep -q 'ADD TAGS' && echo 'true' || echo 'false')" >> $GITHUB_ENV
 
       - name: Install dependencies
+        if: env.SKIP_ACTION == 'false'
         run: |
           npm install node-fetch dotenv
 
       - name: Add tag-id to Vue files
+        if: env.SKIP_ACTION == 'false'
         run: node manifest/add-tag-id-to-vue-files.js
 
       - name: Commit changes
+        if: env.SKIP_ACTION == 'false'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -32,8 +39,10 @@ jobs:
           git push
 
       - name: Sync Files
+        if: env.SKIP_ACTION == 'false'
         env:
           GITHUB_REPO_NAME: ${{ github.repository }}
-          # SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          # SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-        run: node manifest/sync-files-to-supabase.js
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: node manifest/sync-files-to-supabase.js $BRANCH_NAME

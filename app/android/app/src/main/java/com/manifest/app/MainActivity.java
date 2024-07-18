@@ -1,0 +1,5 @@
+package com.manifest.app;
+
+import com.getcapacitor.BridgeActivity;
+
+public class MainActivity extends BridgeActivity {}

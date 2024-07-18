@@ -2,6 +2,8 @@ import fs from 'fs'
 import path from 'path'
 import { supabaseManifestDB } from '../supabase.js'
 
+const branchName = process.argv[2];
+
 const getFiles = (dir, filelist = []) => {
   fs.readdirSync(dir).forEach(file => {
     try {
@@ -29,7 +31,7 @@ const syncFileToSupabase = async (filePath) => {
     github_repo_name: process.env.GITHUB_REPO_NAME.split('/')[1],
     file_path: filePath,
     content,
-    branch: 'main' // We might want to dynamically get this
+    branch: branchName // We might want to dynamically get this
   }
 
   console.log(`Syncing ${filePath} to Supabase...`)
