@@ -1,5 +1,5 @@
 {
-	"appId": "com.manifesthq.demo",
+	"appId": "com.manifest.demo",
 	"appName": "manifest-app",
 	"webDir": ".output/public",
 	"server": {
@@ -7,7 +7,7 @@
 	},
 	"plugins": {
 		"CapacitorUpdater": {
-			"updateUrl": "https://api.manifest-hq.com/updates{}",
+			"updateUrl": "https://api.manifest-hq.com/updates",
 			"appReadyTimeout": 10000
 		}
 	}
