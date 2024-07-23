@@ -9,10 +9,10 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "ios:live": "npm run generate & npx cap sync && npx cap open ios",
-    "ios:open": "npm run generate && npx cap sync && npx cap open ios",
-    "android:live": "npm run generate & npx cap sync && npx cap open android",
-    "android:open": "npm run generate && npx cap sync && npx cap open android"
+    "ios:live": "bun run generate & npx cap sync && npx cap open ios",
+    "ios:open": "bun run generate && npx cap sync && npx cap open ios",
+    "android:live": "bun run generate & npx cap sync && npx cap open android",
+    "android:open": "bun run generate && npx cap sync && npx cap open android"
   },
   "dependencies": {
     "@capacitor/android": "^5.4.2",
