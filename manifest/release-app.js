@@ -9,6 +9,23 @@ const startTime = Date.now()
 const packageJSON = JSON.parse(fs.readFileSync('./package.json'))
 const capacitorJSON = JSON.parse(fs.readFileSync('./app/capacitor.config.json'))
 
+const releaseDataPath = './manifest/releaseData.json'
+let releaseData = {
+  ios: true,
+  android: true,
+  web: true
+}
+if (fs.existsSync(releaseDataPath)) {
+  try {
+    const releaseDataContent = fs.readFileSync(releaseDataPath, 'utf-8')
+    releaseData = JSON.parse(releaseDataContent)
+  } catch (error) {
+    console.error('Error reading releaseData.json:', error.message)
+  }
+}
+
+console.log('releaseData', releaseData)
+
 const { data, error } = await supabaseManifestDB
   .from('app_updates')
   .select('*')
@@ -169,8 +186,9 @@ async function updateSupabaseDB() {
       project_id: packageJSON.name,
       app_id: capacitorJSON.appId,
       version: latest_version,
-      ios: true,
-      android: true,
+      web: releaseData.web,
+      ios: releaseData.ios,
+      android: releaseData.android,
       zip_url: `${projectData[0].supabase_url}/storage/v1/object/public/app_updates/${latest_version}.zip`
     }
   ])
