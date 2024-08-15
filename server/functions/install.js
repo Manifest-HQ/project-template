@@ -59,10 +59,10 @@ fs.watchFile(packageJsonPath, (curr, prev) => {
   )
 
   if (newDependencies.length > 0 || newDevDependencies.length > 0) {
-console.log(
-  'New dependencies detected:',
-  newDependencies.concat(newDevDependencies)
-)
+    console.log(
+      'New dependencies detected:',
+      newDependencies.concat(newDevDependencies)
+    )
     stopServer()
 
     const dependenciesToInstall = newDependencies.map(
