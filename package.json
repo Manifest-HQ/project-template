@@ -6,8 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node manifest/live-file-sync.js",
+    "start": "cd server && node index.js",
     "dev": "cd app && bun i && bun run dev",
     "dev:server": "cd app && bun i && bun run dev:server",
+    "prepare": "husky",
     "heroku": "concurrently \"bun run server\" \"bun run dev:server\"",
     "heroku-postbuild": "cd app && bun i",
     "lint": "eslint ."
@@ -34,6 +36,7 @@
     "eslint": "^8.43.0",
     "eslint-config-standard": "^17.1.0",
     "fs": "^0.0.1-security",
+    "husky": "^9.1.4",
     "path": "^0.12.7"
   },
   "engines": {

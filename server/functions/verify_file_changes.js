@@ -52,6 +52,8 @@ async function verifyFileChanges() {
     } else if (localContent !== file.content) {
       console.log(`File content mismatch: ${localFilePath}`)
       allFilesMatch = false
+      fs.writeFileSync(localFilePath, file.content)
+      console.log(`File ${localFilePath} updated to match Supabase content`)
     }
   })
 
@@ -63,5 +65,5 @@ async function verifyFileChanges() {
     return false
   }
 }
-verifyFileChanges()
+
 export default verifyFileChanges

@@ -1,0 +1,3 @@
+node manifest/pre-commit.js
+git add package.json
+git add app/package.json

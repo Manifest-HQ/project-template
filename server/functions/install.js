@@ -8,7 +8,7 @@ let serverProcess = null
 
 function startServer() {
   serverProcess = exec(
-    'bun i && bun run dev',
+    'bun i && bun run dev:server',
     { cwd: dir },
     (error, stdout, stderr) => {
       if (error) {
@@ -94,6 +94,6 @@ fs.watchFile(packageJsonPath, (curr, prev) => {
 
 // Iniciar el servidor por primera vez
 console.log('Init server')
-startServer()
 
-export default stopServer
+
+export default startServer
