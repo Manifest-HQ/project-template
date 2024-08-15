@@ -58,7 +58,10 @@ async function preReleaseTasks() {
             project_id: packageName,
             version: packageVersion,
             app_id: capacitorAppId,
-            built: false
+            built: false,
+            android: true,
+            ios: true,
+            web: true
           },
           { onConflict: ['project_id', 'version'] }
         );
