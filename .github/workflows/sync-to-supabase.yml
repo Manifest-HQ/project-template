@@ -3,7 +3,10 @@ on:
   push:
     branches:
       - '*'
-    
+
+permissions:
+  contents: write
+
 jobs:
   sync-to-supabase:
     if: "!contains(github.event.head_commit.message, 'IGNORE_ACTIONS')"
@@ -22,12 +25,15 @@ jobs:
 
       - name: Check commit message
         run: |
-          echo "SKIP_ACTION=$(git log -1 --pretty=%B | grep -q 'ADD TAGS' && echo 'true' || echo 'false')" >> $GITHUB_ENV
+          echo "SKIP_ACTION=$(git log -1 --pretty=%B | grep -q 'DONT-ADD-TAGS' && echo 'true' || echo 'false')" >> $GITHUB_ENV
+
 
       - name: Install dependencies
         if: env.SKIP_ACTION == 'false'
         run: |
-          bun i
+          mv package.json package.json_backup
+          bun i cheerio@^1.0.0-rc.12 fs@^0.0.1-security path@^0.12.7 @supabase/supabase-js
+          mv package.json_backup package.json
 
       - name: Add tag-id to Vue files
         if: env.SKIP_ACTION == 'false'
@@ -39,12 +45,8 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A
-          if ! git diff --quiet; then
-            git commit -m "Automatically add tag-id to Vue files"
-            git push
-          else
-            echo "No changes to commit"
-          fi
+          git commit -m "Automatically add tag-id to Vue files" || echo "No changes to commit"
+          git push
 
       - name: Sync Files
         if: env.SKIP_ACTION == 'false'

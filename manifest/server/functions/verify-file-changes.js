@@ -1,10 +1,11 @@
 import fs from 'fs'
 import path from 'path'
-import { supabaseManifestDB } from '../../supabase.js'
+import { supabaseManifestDB } from '../../../supabase.js'
 
-const dirpath = '../'
+const dirpath = '../../'
 
 const packageJsonPath = path.join(dirpath, 'package.json')
+console.log(packageJsonPath)
 let packageName = ''
 
 const packageJsonContent = fs.readFileSync(packageJsonPath, 'utf-8')
@@ -38,11 +39,13 @@ function readLocalFile(filePath) {
 }
 
 // Función para comparar los archivos
-async function verifyFileChanges() {
+export default async function verifyFileChanges() {
   const supabaseFiles = await getFilesFromSupabase()
   let allFilesMatch = true
 
   supabaseFiles.forEach((file) => {
+    if (file.file_path.startsWith('manifest/server/')) return
+
     const localFilePath = path.join(dirpath, file.file_path)
     const localContent = readLocalFile(localFilePath)
 
@@ -65,5 +68,3 @@ async function verifyFileChanges() {
     return false
   }
 }
-
-export default verifyFileChanges

@@ -1,8 +1,8 @@
 import fs from 'fs'
 import { exec } from 'child_process'
 
-const packageJsonPath = '../app/package.json'
-const dir = '../app'
+const packageJsonPath = '../../app/package.json'
+const dir = '../../app'
 let packageJsonContent = ''
 let serverProcess = null
 
@@ -94,6 +94,5 @@ fs.watchFile(packageJsonPath, (curr, prev) => {
 
 // Iniciar el servidor por primera vez
 console.log('Init server')
-
 
 export default startServer

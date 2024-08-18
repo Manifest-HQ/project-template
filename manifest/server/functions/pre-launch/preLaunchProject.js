@@ -2,7 +2,7 @@
 import fs from 'fs'
 import { exec } from 'child_process'
 import archiver from 'archiver'
-import { supabase, supabaseManifestDB } from '../../../supabase.js'
+import { supabase, supabaseManifestDB } from '../../../../supabase.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -13,62 +13,65 @@ const __dirname = path.dirname(__filename)
 export default async function preLaunchProject() {
   const startTime = Date.now()
 
-  const packageJSONPath = path.resolve(__dirname, '../../../package.json')
+  const packageJSONPath = path.resolve(__dirname, '../../../../package.json')
+
   const packageJSON = JSON.parse(fs.readFileSync(packageJSONPath, 'utf-8'))
-  const appPackageJSONPath = path.resolve(
-    path.resolve(__dirname, '../../../app/package.json')
-  )
-  const appPackageJSON = JSON.parse(
-    fs.readFileSync(appPackageJSONPath, 'utf-8')
-  )
+  // const appPackageJSONPath = path.resolve(
+  //   path.resolve(__dirname, '../../../../app/package.json')
+  // )
+  // const appPackageJSON = JSON.parse(
+  //   fs.readFileSync(appPackageJSONPath, 'utf-8')
+  // )
 
   const capacitorJSON = JSON.parse(
     fs.readFileSync(
-      path.resolve(__dirname, '../../../app/capacitor.config.json')
+      path.resolve(__dirname, '../../../../app/capacitor.config.json')
     )
   )
 
-  const { data, error } = await supabaseManifestDB
-    .from('app_updates')
-    .select('*')
-    .eq('project_id', packageJSON.name)
-    .order('created_at', { ascending: false })
-    .limit(1)
+  // const { data, error } = await supabaseManifestDB
+  //   .from('app_updates')
+  //   .select('*')
+  //   .eq('project_id', packageJSON.name)
+  //   .order('created_at', { ascending: false })
+  //   .limit(1)
 
-  let latestVersion = data?.[0]?.version || '1.0.0'
+  // let latestVersion = data?.[0]?.version || '1.0.0'
 
-  // Compare versions and use the higher one
-  const currentVersionSegments = packageJSON.version.split('.').map(Number)
-  const latestVersionSegments = latestVersion.split('.').map(Number)
+  // // Compare versions and use the higher one
+  // const currentVersionSegments = packageJSON.version.split('.').map(Number)
+  // const latestVersionSegments = latestVersion.split('.').map(Number)
 
-  console.log(currentVersionSegments, latestVersionSegments)
+  // console.log(currentVersionSegments, latestVersionSegments)
 
-  let updated = false
-  for (let i = 0; i < currentVersionSegments.length; i++) {
-    if (currentVersionSegments[i] > latestVersionSegments[i]) {
-      latestVersion = packageJSON.version // Current version is higher, use it
-      updated = true
-      break
-    }
-  }
-  if (!updated) {
-    const lastDigitVersion =
-      latestVersionSegments[latestVersionSegments.length - 1] + 1
-    latestVersion =
-      latestVersionSegments.slice(0, -1).join('.') + '.' + lastDigitVersion
-  }
+  // let updated = false
+  // for (let i = 0; i < currentVersionSegments.length; i++) {
+  //   if (currentVersionSegments[i] > latestVersionSegments[i]) {
+  //     latestVersion = packageJSON.version // Current version is higher, use it
+  //     updated = true
+  //     break
+  //   }
+  // }
+  // if (!updated) {
+  //   const lastDigitVersion =
+  //     latestVersionSegments[latestVersionSegments.length - 1] + 1
+  //   latestVersion =
+  //     latestVersionSegments.slice(0, -1).join('.') + '.' + lastDigitVersion
+  // }
 
-  if (latestVersion !== packageJSON.version) {
-    packageJSON.version = latestVersion
-    appPackageJSON.version = latestVersion
-    fs.writeFileSync(packageJSONPath, JSON.stringify(packageJSON, null, 2))
-    fs.writeFileSync(
-      appPackageJSONPath,
-      JSON.stringify(appPackageJSON, null, 2)
-    )
-  }
+  // if (latestVersion !== packageJSON.version) {
+  //   packageJSON.version = latestVersion
+  //   appPackageJSON.version = latestVersion
+  //   fs.writeFileSync(packageJSONPath, JSON.stringify(packageJSON, null, 2))
+  //   fs.writeFileSync(
+  //     appPackageJSONPath,
+  //     JSON.stringify(appPackageJSON, null, 2)
+  //   )
+  // }
 
-  console.log('Version number increased to ' + packageJSON.version)
+  // console.log('Version number increased to ' + packageJSON.version)
+
+  console.log('Version number is ' + packageJSON.version)
   const { data: upsertData, error: upsertError } = await supabaseManifestDB
     .from('app_updates')
     .upsert(
@@ -95,7 +98,7 @@ export default async function preLaunchProject() {
   // run bun run generate
   const execPromise = new Promise((resolve, reject) => {
     exec(
-      `cd ${__dirname} && cd ../../../app && bun i && bun run generate`,
+      `cd ${__dirname} && cd ../../../../app  && pwd && bun i && bun run generate`,
       (err, stdout, stderr) => {
         if (err) {
           console.error(err)
@@ -145,7 +148,7 @@ function compress(packageJSONVersion) {
   return new Promise((resolve, reject) => {
     // compress .output/public folder
     const outputPath = path.join(
-      path.resolve(__dirname, '../../../app/.output'),
+      path.resolve(__dirname, '../../../../app/.output'),
       `${packageJSONVersion}.zip`
     )
     console.log(outputPath)
@@ -156,7 +159,7 @@ function compress(packageJSONVersion) {
     console.log(output)
     archive.pipe(output)
     archive.directory(
-      path.join(path.resolve(__dirname, '../../../app/.output/public/')),
+      path.join(path.resolve(__dirname, '../../../../app/.output/public/')),
       false
     )
     archive.finalize()
@@ -179,7 +182,7 @@ async function uploadToSupabaseStorage(packageJSONVersion) {
   // upload the .zip to supabase storage
   try {
     const filePath = path.join(
-      path.resolve(__dirname, '../../../app/.output'),
+      path.resolve(__dirname, '../../../../app/.output'),
       `${packageJSONVersion}.zip`
     )
     const file = await fs.promises.readFile(filePath)

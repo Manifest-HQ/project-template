@@ -1,11 +1,11 @@
 import fs from 'fs'
 import path from 'path'
-import { supabaseManifestDB } from '../../supabase.js'
+import { supabaseManifestDB } from '../../../supabase.js'
 
 // on update from supabase
 // fs.writeFileSync('app/' + filePath, `${data.value}`)
 
-const dirpath = '../'
+const dirpath = '../../'
 const packageJsonPath = path.join(dirpath, 'package.json')
 let packageName = ''
 

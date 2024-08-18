@@ -8,19 +8,34 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-const appPath = path.resolve(__dirname, '../../../app/')
+const appPath = path.resolve(__dirname, '../../../../app/')
+console.log('appPath', appPath)
 
 export default async function commitToGithub() {
   const username = 'Manifest-HQ'
 
-  const packageJSONPath = path.resolve(__dirname, '../../../package.json')
+  const packageJSONPath = path.resolve(__dirname, '../../../../package.json')
   const packageJSON = JSON.parse(fs.readFileSync(packageJSONPath, 'utf-8'))
 
   const repo = packageJSON.name // 'manifest-project-NUQ42K' // TODO, this should be dynamic
   const branch = 'main'
 
-  //TODO: this should be a secret
   const token = {{GITHUB_TOKEN}}
+
+  let latestCommitShaAndDate
+  try {
+    // Step 0: Get the latest commit SHA for the branch
+    latestCommitShaAndDate = await getLatestCommitShaByAuthor(
+      username,
+      repo,
+      branch,
+      'loama18@gmail.com',
+      token
+    )
+  } catch (error) {
+    console.error('Failed to get the latest commit SHA by author:', error)
+    return
+  }
 
   const latestCommitSha = await getLatestCommitSha(
     username,
@@ -92,13 +107,20 @@ export default async function commitToGithub() {
   console.log(gitIgnore)
 
   // TODO: working but pngs or assets are incorrect
-  // const files = getAllFiles(appPath, [], gitIgnore).map((file) => ({
-  //   path: `app/${path.relative(appPath, file)}`,
-  //   content: fs.readFileSync(file, 'utf-8')
-  // }))
+  const files = getAllFiles(
+    appPath,
+    [],
+    gitIgnore,
+    latestCommitShaAndDate.date
+  ).map((file) => ({
+    path: `app/${path.relative(appPath, file)}`,
+    content: fs.readFileSync(file, 'utf-8')
+  }))
 
-  const files = [{ path: 'app/test.txt', content: 'text' }]
-
+  if (files.length === 0) {
+    console.log('No files to commit')
+    return
+  }
   // Create a new tree with the files
   const newTreeSha = await createNewTree(
     username,
@@ -124,22 +146,61 @@ export default async function commitToGithub() {
   await updateBranch(username, repo, branch, newCommitSha, token)
 }
 
-function getAllFiles(dirPath, arrayOfFiles = [], gitIgnore = []) {
+function getAllFiles(dirPath, arrayOfFiles = [], gitIgnore = [], date) {
   const ig = ignore().add(gitIgnore)
   const files = fs.readdirSync(dirPath)
+  const dateThreshold = new Date(date)
 
   files.forEach((file) => {
     const filePath = path.join(dirPath, file)
-    if (fs.statSync(filePath).isDirectory()) {
-      arrayOfFiles = getAllFiles(filePath, arrayOfFiles, gitIgnore)
+    const fileStat = fs.statSync(filePath)
+
+    if (fileStat.isDirectory()) {
+      arrayOfFiles = getAllFiles(filePath, arrayOfFiles, gitIgnore, date)
     } else {
-      if (!ig.ignores(path.relative(appPath, filePath))) {
+      const fileModifiedTime = new Date(fileStat.mtime)
+      if (
+        !ig.ignores(path.relative(appPath, filePath)) &&
+        fileModifiedTime > dateThreshold
+      ) {
         arrayOfFiles.push(filePath)
       }
     }
   })
 
   return arrayOfFiles
+}
+
+async function getLatestCommitShaByAuthor(
+  username,
+  repo,
+  branch,
+  authorEmail,
+  token
+) {
+  const response = await fetch(
+    `https://api.github.com/repos/${username}/${repo}/commits?sha=${branch}`,
+    {
+      headers: {
+        Authorization: `token ${token}`
+      }
+    }
+  )
+  const data = await response.json()
+
+  if (!response.ok) {
+    throw new Error(data.message || 'Failed to get the commits')
+  }
+
+  const commit = data.find(
+    (commit) => commit.commit.author.email === authorEmail
+  )
+
+  if (!commit) {
+    throw new Error(`No commits found by ${authorEmail} on branch ${branch}`)
+  }
+
+  return { sha: commit.sha, date: commit.commit.author.date }
 }
 
 async function getLatestCommitSha(username, repo, branch, token) {
@@ -206,26 +267,49 @@ async function createNewTree(
 }
 
 async function createBlob(username, repo, content, token) {
-  const response = await fetch(
-    `https://api.github.com/repos/${username}/${repo}/git/blobs`,
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `token ${token}`
-      },
-      body: JSON.stringify({
-        content,
-        encoding: 'utf-8'
-      })
+  const maxRetries = 10
+  let attempt = 0
+  let delay = 1000 // Initial delay of 1 second
+
+  while (attempt < maxRetries) {
+    try {
+      const response = await fetch(
+        `https://api.github.com/repos/${username}/${repo}/git/blobs`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `token ${token}`
+          },
+          body: JSON.stringify({
+            content,
+            encoding: 'utf-8'
+          })
+        }
+      )
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to create a blob')
+      }
+
+      return data
+    } catch (error) {
+      if (attempt < maxRetries - 1) {
+        console.warn(
+          `Attempt ${attempt + 1} failed. Retrying in ${
+            delay / 1000
+          } seconds...`
+        )
+        await new Promise((resolve) => setTimeout(resolve, delay))
+        delay *= 2 // Exponential backoff
+        attempt++
+      } else {
+        throw new Error(
+          `Failed to create a blob after ${maxRetries} attempts: ${error.message}`
+        )
+      }
     }
-  )
-  const data = await response.json()
-
-  if (!response.ok) {
-    throw new Error(data.message || 'Failed to create a blob')
   }
-
-  return data
 }
 
 async function createTree(username, repo, blobs, baseTreeSha, token) {
