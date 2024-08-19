@@ -24,15 +24,28 @@ app.post('/pre-launch', async (req, res) => {
 })
 
 app.post('/launch', async (req, res) => {
-  const { releaseData, web } = req.body
-  await verifyFileChanges()
-  await commitToGithub()
-  if (web || releaseData.web) {
-    //TODO vercel deploy with releaseData
-    // await deployToVercel(releaseData)
-    console.log('Deploying to Vercel')
+  const { releaseData } = req.body
+  try {
+    await verifyFileChanges()
+  } catch (error) {
+    console.error('Error verifying file changes:', error)
+    return res.send({
+      success: false,
+      message: 'Failed to verify file changes'
+    })
   }
-  res.send('Hacer commit a GitHub')
+
+  try {
+    await commitToGithub(releaseData.web)
+  } catch (error) {
+    console.error('Error pushing changes to GitHub:', error)
+    return res.send({
+      success: false,
+      message: 'Failed to push changes to GitHub'
+    })
+  }
+
+  res.send({ success: true, message: 'Project launched successfully' })
 })
 
 // Endpoint para "listen file changes"

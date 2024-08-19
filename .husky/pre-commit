@@ -1,3 +1,6 @@
 node manifest/pre-commit.js
 git add package.json
 git add app/package.json
+
+node manifest/pre-commit-update-vercel.js
+git add vercel.json
