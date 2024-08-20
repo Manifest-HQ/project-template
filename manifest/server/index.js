@@ -5,8 +5,11 @@ import listenChanges from './functions/listen-file-changes.js'
 import startServer from './functions/install.js'
 import verifyFileChanges from './functions/verify-file-changes.js'
 import { commitToGithub } from './functions/launch/index.js'
+import dotenv from 'dotenv'
+
+dotenv.config()
 const app = express()
-const port = 3005
+const port = process.env.PORT || 3005
 startServer()
 listenChanges()
 
@@ -14,7 +17,33 @@ app.use(cors())
 app.use(express.json())
 
 app.get('/', async (req, res) => {
-  res.send('working')
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Página Interna</title>
+      <style>
+        body, html {
+          margin: 0;
+          padding: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
+        iframe {
+          width: 100%;
+          height: 100%;
+          border: none;
+        }
+      </style>
+    </head>
+    <body>
+      <iframe src="http://localhost:3004"></iframe>
+    </body>
+    </html>
+  `)
 })
 
 app.post('/pre-launch', async (req, res) => {

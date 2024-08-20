@@ -8,7 +8,7 @@ let serverProcess = null
 
 function startServer() {
   serverProcess = exec(
-    'bun i && bun run dev:server',
+    'npm run dev:server',
     { cwd: dir },
     (error, stdout, stderr) => {
       if (error) {
@@ -24,7 +24,7 @@ function startServer() {
   )
 }
 
-export function stopServer(port = process.env.port || '3004') {
+export function stopServer(port = '3004') {
   exec(`fuser -k ${port}/tcp`, (error, stdout, stderr) => {
     if (error) {
       console.error(`Error stopping the server on port ${port}: ${error}`)
@@ -76,14 +76,18 @@ fs.watchFile(packageJsonPath, (curr, prev) => {
       .concat(devDependenciesToInstall)
       .join(' ')
     console.log(`toinstall: ${allDependenciesToInstall}`)
-    exec(`bun i `, { cwd: dir }, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Error installing new dependencies: ${error}`)
-        return
+    exec(
+      `npm i ${allDependenciesToInstall}`,
+      { cwd: dir },
+      (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Error installing new dependencies: ${error}`)
+          return
+        }
+        console.log('start server')
+        startServer()
       }
-      console.log('start server')
-      startServer()
-    })
+    )
   } else {
     console.log('No new dependencies. The server continues running.')
   }
