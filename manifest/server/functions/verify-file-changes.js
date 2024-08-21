@@ -28,7 +28,6 @@ async function getFilesFromSupabase() {
   return data
 }
 
-// Función para leer el contenido de un archivo local
 function readLocalFile(filePath) {
   try {
     return fs.readFileSync(filePath, 'utf-8')
@@ -38,25 +37,31 @@ function readLocalFile(filePath) {
   }
 }
 
-// Función para comparar los archivos
 export default async function verifyFileChanges() {
   const supabaseFiles = await getFilesFromSupabase()
   let allFilesMatch = true
 
   supabaseFiles.forEach((file) => {
     if (file.file_path.startsWith('manifest/server/')) return
+    try {
+      const localFilePath = path.join(dirpath, file.file_path)
+      const localContent = readLocalFile(localFilePath)
 
-    const localFilePath = path.join(dirpath, file.file_path)
-    const localContent = readLocalFile(localFilePath)
-
-    if (localContent === null) {
-      console.log(`Local file not found: ${localFilePath}`)
-      allFilesMatch = false
-    } else if (localContent !== file.content) {
-      console.log(`File content mismatch: ${localFilePath}`)
-      allFilesMatch = false
-      fs.writeFileSync(localFilePath, file.content)
-      console.log(`File ${localFilePath} updated to match Supabase content`)
+      if (localContent === null) {
+        //console.log(`Local file not found: ${localFilePath}`)
+        allFilesMatch = false
+      } else if (localContent !== file.content) {
+        console.log(`File content mismatch: ${localFilePath}`)
+        allFilesMatch = false
+        fs.writeFileSync(localFilePath, file.content)
+        console.log(`File ${localFilePath} updated to match Supabase content`)
+      }
+    } catch (error) {
+      if (error.code === 'ENOENT') {
+        console.error('verify files have an error: ENOENT', error.path)
+      } else {
+        console.error('IMPORTANT! Error verifying files:', error)
+      }
     }
   })
 

@@ -92,11 +92,9 @@ fs.watchFile(packageJsonPath, (curr, prev) => {
     console.log('No new dependencies. The server continues running.')
   }
 
-  // Actualizar el contenido de packageJsonContent con el nuevo contenido
   packageJsonContent = fs.readFileSync(packageJsonPath, 'utf8')
 })
 
-// Iniciar el servidor por primera vez
 console.log('Init server')
 
 export default startServer

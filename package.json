@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node manifest/live-file-sync.js",
     "init": "npm i && cd app && npm i && cd ../manifest/server && npm i",
-    "start": "cd manifest/server && node index.js",
+    "iframe:start": "bun run dev:server & (cd manifest/server && node index.js)",
     "dev": "cd app && bun i && bun run dev",
     "dev:server": "cd app && bun i && bun run dev:server",
     "prepare": "husky",
