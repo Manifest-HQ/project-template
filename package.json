@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "node manifest/live-file-sync.js",
+    "live-file-sync": "node manifest/live-file-sync.js",
     "dev": "cd app && bun i && bun run dev",
     "dev:server": "cd app && bun i && bun run dev:server",
-    "heroku": "concurrently \"bun run server\" \"bun run dev:server\"",
+    "heroku": "concurrently \"bun run live-file-sync\" \"bun run dev:server\"",
     "heroku-postbuild": "cd app && bun i",
     "lint": "eslint ."
   },
