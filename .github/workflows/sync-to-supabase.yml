@@ -4,6 +4,9 @@ on:
     branches:
       - '*'
 
+permissions:
+  contents: write
+
 jobs:
   sync-to-supabase:
     runs-on: ubuntu-latest
@@ -29,14 +32,14 @@ jobs:
       #  if: env.SKIP_ACTION == 'false'
       #  run: node manifest/add-tag-id-to-vue-files.js
 
-      - name: Commit changes
-        if: env.SKIP_ACTION == 'false'
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add -A
-          git commit -m "Automatically add tag-id to Vue files" || echo "No changes to commit"
-          git push
+      #- name: Commit changes
+      #  if: env.SKIP_ACTION == 'false'
+      #  run: |
+      #    git config --local user.email "action@github.com"
+      #    git config --local user.name "GitHub Action"
+      #    git add -A
+      #    git commit -m "Automatically add tag-id to Vue files" || echo "No changes to commit"
+      #    git push
 
       - name: Sync Files
         if: env.SKIP_ACTION == 'false'

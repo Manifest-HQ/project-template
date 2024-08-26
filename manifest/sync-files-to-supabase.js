@@ -61,7 +61,7 @@ if (
 const syncFileToSupabase = async (filePath) => {
   const content = fs.readFileSync(filePath, 'utf8')
   const fileInfo = {
-    github_repo_name: github_repo_name,
+    github_repo_name: githubRepoName,
     file_path: filePath,
     content,
     branch: branchName // We might want to dynamically get this
