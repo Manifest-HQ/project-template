@@ -9,11 +9,15 @@ console.log('Current route:', process.env.PATH)
 
 supabaseManifestDB
   .channel('document_updates')
-  .on('postgres_changes', {
-    event: 'UPDATE',
-    schema: 'public',
-    table: 'files'
-  }, handleDocumentUpdates)
+  .on(
+    'postgres_changes',
+    {
+      event: 'UPDATE',
+      schema: 'public',
+      table: 'files'
+    },
+    handleDocumentUpdates
+  )
   .subscribe()
 
 async function handleDocumentUpdates(payload) {

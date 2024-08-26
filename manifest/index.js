@@ -7,16 +7,19 @@ const firestore = admin.firestore()
 const filesRef = firestore.collection('files')
 const filesQuery = filesRef.where('projectID', '!=', 'CA')
 
-filesQuery.onSnapshot((querySnapshot) => {
-  querySnapshot.forEach((doc) => {
-    const data = doc.data()
-    // console.log(`Document data: ${JSON.stringify(data)}`)
+filesQuery.onSnapshot(
+  (querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      const data = doc.data()
+      // console.log(`Document data: ${JSON.stringify(data)}`)
 
-    const filePath = data.path
-    fs.writeFileSync('app/' + filePath, `${data.value}`)
-  })
-}, (error) => {
-  console.error(`Error fetching documents: ${error}`)
-})
+      const filePath = data.path
+      fs.writeFileSync('app/' + filePath, `${data.value}`)
+    })
+  },
+  (error) => {
+    console.error(`Error fetching documents: ${error}`)
+  }
+)
 
 console.log('started')
