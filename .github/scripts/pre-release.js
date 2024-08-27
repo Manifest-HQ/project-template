@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { supabaseManifestDB } from '../supabase.js'
+import { supabaseManifestDB } from '../../supabase.js'
 
 const dirpath = './'
 const packageJsonPath = path.join(dirpath, 'package.json')
