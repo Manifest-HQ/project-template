@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { supabaseManifestDB } from '../../supabase.js'
+import { supabaseManifestDB } from '../supabase.js'
 
 const dirpath = './'
 const packageJsonPath = path.join(dirpath, 'package.json')
@@ -16,34 +16,21 @@ console.log('version: ', packageVersion)
 console.log('name: ', packageName)
 console.log('appID: ', capacitorAppId)
 
-const ip = await (async () => {
-  let { data: projects, error } = await supabaseManifestDB
-    .from('projects')
-    .select('server_ip')
-    .eq('id', packageName)
-    .single()
-  if (error) console.log(error)
-  return projects.server_ip
-})()
-
-const url = `http://${ip}:9000/`
+const branchName = process.argv[2] || 'main'
+const url = `https://api.manifest-hq.com/`
 
 async function preReleaseTasks() {
   try {
-    const preLaunch = () => {
-      const branch = 'main'
-      const response = fetch(url + 'pre-launch', {
+    const preLaunch = async () => {
+      const response = await fetch(url + 'pre-launch', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ projectID: packageName, branch })
-      }).then((response) => {
-        if (!response.ok) {
-          throw new Error(`Error in POST pre-launch: ${response.message}`)
-        }
-        return response
+        body: JSON.stringify({ projectID: packageName, branch: branchName })
       })
+      console.log(await response.json())
+      return await response.json()
     }
 
     const supabaseRequest = async () => {
