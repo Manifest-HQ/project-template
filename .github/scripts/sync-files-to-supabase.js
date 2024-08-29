@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { supabaseManifestDB } from '../supabase.js'
+import { supabaseManifestDB } from '../../supabase.js'
 
 const branchName = process.argv[2]
 const githubRepoName = process.env.GITHUB_REPO_NAME.split('/')[1]

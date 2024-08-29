@@ -133,7 +133,13 @@ async function handleUpdates(payload) {
 
   if (platform === 'web') return
 
-  if (payload.new && payload.new[platform]) {
+  if (
+    payload.new &&
+    payload.new.zip_url &&
+    payload.new.version &&
+    payload.new[platform] &&
+    payload.new.built === true
+  ) {
     await applyZipUpdate(payload.new.zip_url, payload.new.version)
   }
 }
