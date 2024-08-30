@@ -1,4 +1,4 @@
-name: Sync Files to Supabase
+name: Sync Files to Manifest
 on:
   push:
     branches:
