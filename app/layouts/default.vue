@@ -1,6 +1,6 @@
 <template>
-  <div class="h-screen" tag-id="tag-4F57HrTt">
-    <NuxtPage tag-id="tag-Xt3h6fyE" />
+  <div class="h-screen">
+    <NuxtPage />
   </div>
 </template>
 

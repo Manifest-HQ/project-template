@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import supabase from '../supabase'
+import { supabase } from '../supabase'
 import { Network } from '@capacitor/network'
 import { Preferences } from '@capacitor/preferences'
 

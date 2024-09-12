@@ -2,16 +2,13 @@
 export default defineNuxtConfig({
   app: {
     head: {
-      viewport: 'width=device-width, minimum-scale=1.0, maximum-scale = 1.0, user-scalable = no, viewport-fit=cover'
+      viewport:
+        'width=device-width, minimum-scale=1.0, maximum-scale = 1.0, user-scalable = no, viewport-fit=cover'
     }
     // pageTransition: { name: 'page', mode: 'out-in' }
   },
   devtools: { enabled: true },
-  modules: [
-    '@nuxtjs/tailwindcss',
-    '@pinia/nuxt',
-    'shadcn-nuxt'
-  ],
+  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', 'shadcn-nuxt'],
   runtimeConfig: {
     public: {
       // do not update this, it will be overwritten by the build but it needs to be exactly this here
@@ -25,6 +22,7 @@ export default defineNuxtConfig({
   nitro: {
     preset: 'nitro-prerender'
   },
+  plugins: [{ src: '~/plugins/VueDraggableResizable.js', mode: 'client' }],
   shadcn: {
     /**
      * Prefix for all the imported component

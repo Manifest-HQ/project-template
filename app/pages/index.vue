@@ -1,15 +1,17 @@
 <template>
-  <div class="pt-safe bg-green-600 p-2" tag-id="tag-LwLddRu5">
-    <div tag-id="tag-CHYIGDnb">level 1</div>
-    <div tag-id="tag-H1GF8SUG">
-      <div tag-id="tag-rzBmtjqq">level 3</div>
-      <img src="https://via.placeholder.com/150" tag-id="tag-LbcXXuZb">
-    </img></div>
-  </div>
-  <div class="" tag-id="tag-DzslJVj5">
-    test adding tag-id
-  </div>
+  <div class="bg-red-100 h-full pt-16 px-2 w-full">
+    <div
+      class="bg-white border-b border-zinc-200 fixed flex h-12 left-0 top-0 w-full">
+      <div
+        class="bg-blue-400 h-8 leading-8 m-2 mt-2 rounded-md text-center text-white text-xs w-8">
+        logo
+      </div>
+    </div>
 
+    <div class="mt-40 text-lg">Pets App</div>
+
+    <div>This is an app to handle your pet needs</div>
+  </div>
 </template>
 
 <script setup>

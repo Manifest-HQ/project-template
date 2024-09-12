@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
 import { Capacitor } from '@capacitor/core'
-import { CapacitorUpdater } from '@capacitor/updater'
+import { CapacitorUpdater } from '@capgo/capacitor-updater'
 import { supabaseManifestDB } from '../../supabase.js'
 
 // TODO use this only on ios and android, not web
 CapacitorUpdater.notifyAppReady()
 
-export const useStoreDB = defineStore('DB', () => {
+export const useStoreUpdates = defineStore('Updates', () => {
   let realtimeSubscription = null
 
   const config = useRuntimeConfig()

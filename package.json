@@ -39,7 +39,7 @@
   "devDependencies": {
     "archiver": "^7.0.1",
     "cheerio": "^1.0.0-rc.12",
-    "eslint": "^8.43.0",
+    "eslint": "^9.10.0",
     "eslint-config-standard": "^17.1.0",
     "fs": "^0.0.1-security",
     "husky": "^9.1.4",
