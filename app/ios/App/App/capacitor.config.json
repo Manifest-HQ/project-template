@@ -10,5 +10,32 @@
 			"updateUrl": "https://api.manifest-hq.com/updates",
 			"appReadyTimeout": 10000
 		}
-	}
+	},
+	"packageClassList": [
+		"AppIcon",
+		"BackgroundGeolocation",
+		"BarcodeScanner",
+		"SpeechRecognition",
+		"AppPlugin",
+		"CAPBrowserPlugin",
+		"CAPCameraPlugin",
+		"ClipboardPlugin",
+		"DevicePlugin",
+		"DialogPlugin",
+		"FilesystemPlugin",
+		"GeolocationPlugin",
+		"HapticsPlugin",
+		"KeyboardPlugin",
+		"LocalNotificationsPlugin",
+		"CAPNetworkPlugin",
+		"PreferencesPlugin",
+		"PushNotificationsPlugin",
+		"ScreenOrientationPlugin",
+		"ScreenReaderPlugin",
+		"SharePlugin",
+		"StatusBarPlugin",
+		"TextZoomPlugin",
+		"ToastPlugin",
+		"CapacitorUpdaterPlugin"
+	]
 }

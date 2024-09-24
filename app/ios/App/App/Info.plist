@@ -71,8 +71,6 @@
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true />
 
-	<key>NSLocationAlwaysUsageDescription</key>
-		<string>Location is required for app functionality</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 		<string>Location is required for app functionality</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>

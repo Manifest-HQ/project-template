@@ -10,6 +10,4 @@
     <string name="capacitor_background_geolocation_notification_icon">
         drawable/ic_tracking
     </string>
-    <string name="package_name">com.manifest.app</string>
-    <string name="custom_url_scheme">com.manifest.app</string>
 </resources>
