@@ -32,7 +32,6 @@ async function updateVersion() {
 
   fs.writeFileSync(appPackageJsonPath, JSON.stringify(appPackageJson, null, 2))
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
-
 }
 
 async function getVersion() {
@@ -47,7 +46,7 @@ async function getVersion() {
     const latestVersion = data[0]
     return latestVersion.version
   } else {
-    throw new Error('No version data found.')
+    return '1.0.0'
   }
 }
 
