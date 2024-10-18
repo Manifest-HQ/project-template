@@ -81,7 +81,7 @@
     "eslint-plugin-vue": "^9.17.0",
     "path": "^0.12.7"
   },
-  "version": "1.0.39",
+  "version": "1.0.46",
   "engines": {
     "node": "20"
   }

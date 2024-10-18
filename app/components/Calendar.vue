@@ -1,20 +1,42 @@
 <template>
   <div tag-id="tag-GlFDY8HX">
-    <h2 class="text-base font-semibold leading-6 text-gray-900" tag-id="tag-jphKkQGs">Upcoming meetings</h2>
+    <h2
+      class="font-semibold leading-6 text-base text-gray-900"
+      tag-id="tag-jphKkQGs">
+      Upcoming meetings
+    </h2>
     <div class="lg:grid lg:grid-cols-12 lg:gap-x-16" tag-id="tag-iVeug89t">
-      <div class="mt-10 text-center lg:col-start-8 lg:col-end-13 lg:row-start-1 lg:mt-9 xl:col-start-9" tag-id="tag-4mPRGQcA">
+      <div
+        class="lg:col-start-8 lg:col-end-13 lg:row-start-1 lg:mt-9 xl:col-start-9 mt-10 text-center"
+        tag-id="tag-4mPRGQcA">
         <div class="flex items-center text-gray-900" tag-id="tag-LBh6EZLF">
-          <button type="button" class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500" tag-id="tag-sLcyfRhg">
+          <button
+            type="button"
+            class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
+            tag-id="tag-sLcyfRhg">
             <span class="sr-only" tag-id="tag-TaQMTQ4a">Previous month</span>
-            <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" tag-id="tag-YWcbPfK4"/>
+            <ChevronLeftIcon
+              class="h-5 w-5"
+              aria-hidden="true"
+              tag-id="tag-YWcbPfK4" />
           </button>
-          <div class="flex-auto text-sm font-semibold" tag-id="tag-6pEY5umI">January</div>
-          <button type="button" class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500" tag-id="tag-5UkIeL81">
+          <div class="flex-auto font-semibold text-sm" tag-id="tag-6pEY5umI">
+            January
+          </div>
+          <button
+            type="button"
+            class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
+            tag-id="tag-5UkIeL81">
             <span class="sr-only" tag-id="tag-FUM8QlkR">Next month</span>
-            <ChevronRightIcon class="h-5 w-5" aria-hidden="true" tag-id="tag-LHr6F8c2"/>
+            <ChevronRightIcon
+              class="h-5 w-5"
+              aria-hidden="true"
+              tag-id="tag-LHr6F8c2" />
           </button>
         </div>
-        <div class="mt-6 grid grid-cols-7 text-xs leading-6 text-gray-500" tag-id="tag-jJUxMcSs">
+        <div
+          class="grid grid-cols-7 leading-6 mt-6 text-gray-500 text-xs"
+          tag-id="tag-jJUxMcSs">
           <div tag-id="tag-NU1KlrMq">M</div>
           <div tag-id="tag-6GepwXUH">T</div>
           <div tag-id="tag-9qBBF1PV">W</div>
@@ -23,53 +45,129 @@
           <div tag-id="tag-HRuhqI3N">S</div>
           <div tag-id="tag-nZA5cKK6">S</div>
         </div>
-        <div class="isolate mt-2 grid grid-cols-7 gap-px rounded-lg bg-gray-200 text-sm shadow ring-1 ring-gray-200" tag-id="tag-BfShux9n">
-          <button v-for="(day, dayIdx) in days" :key="day.date" type="button" :class="[&apos;py-1.5 hover:bg-gray-100 focus:z-10&apos;, day.isCurrentMonth ? &apos;bg-white&apos; : &apos;bg-gray-50&apos;, (day.isSelected || day.isToday) &amp;&amp; &apos;font-semibold&apos;, day.isSelected &amp;&amp; &apos;text-white&apos;, !day.isSelected &amp;&amp; day.isCurrentMonth &amp;&amp; !day.isToday &amp;&amp; &apos;text-gray-900&apos;, !day.isSelected &amp;&amp; !day.isCurrentMonth &amp;&amp; !day.isToday &amp;&amp; &apos;text-gray-400&apos;, day.isToday &amp;&amp; !day.isSelected &amp;&amp; &apos;text-indigo-600&apos;, dayIdx === 0 &amp;&amp; &apos;rounded-tl-lg&apos;, dayIdx === 6 &amp;&amp; &apos;rounded-tr-lg&apos;, dayIdx === days.length - 7 &amp;&amp; &apos;rounded-bl-lg&apos;, dayIdx === days.length - 1 &amp;&amp; &apos;rounded-br-lg&apos;]" tag-id="tag-bEvFcmIr">
-            <time :datetime="day.date" :class="[&apos;mx-auto flex h-7 w-7 items-center justify-center rounded-full&apos;, day.isSelected &amp;&amp; day.isToday &amp;&amp; &apos;bg-indigo-600&apos;, day.isSelected &amp;&amp; !day.isToday &amp;&amp; &apos;bg-gray-900&apos;]" tag-id="tag-3GXMSV1W">{{ day.date.split(&apos;-&apos;).pop().replace(/^0/, &apos;&apos;) }}</time>
+        <div
+          class="bg-gray-200 gap-px grid grid-cols-7 isolate mt-2 ring-1 ring-gray-200 rounded-lg shadow text-sm"
+          tag-id="tag-BfShux9n">
+          <button
+            v-for="(day, dayIdx) in days"
+            :key="day.date"
+            type="button"
+            :class="['py-1.5 hover:bg-gray-100 focus:z-10', day.isCurrentMonth ? 'bg-white' : 'bg-gray-50', (day.isSelected || day.isToday) &amp;&amp; 'font-semibold', day.isSelected &amp;&amp; 'text-white', !day.isSelected &amp;&amp; day.isCurrentMonth &amp;&amp; !day.isToday &amp;&amp; 'text-gray-900', !day.isSelected &amp;&amp; !day.isCurrentMonth &amp;&amp; !day.isToday &amp;&amp; 'text-gray-400', day.isToday &amp;&amp; !day.isSelected &amp;&amp; 'text-indigo-600', dayIdx === 0 &amp;&amp; 'rounded-tl-lg', dayIdx === 6 &amp;&amp; 'rounded-tr-lg', dayIdx === days.length - 7 &amp;&amp; 'rounded-bl-lg', dayIdx === days.length - 1 &amp;&amp; 'rounded-br-lg']"
+            tag-id="tag-bEvFcmIr">
+            <time
+              :datetime="day.date"
+              :class="['mx-auto flex h-7 w-7 items-center justify-center rounded-full', day.isSelected &amp;&amp; day.isToday &amp;&amp; 'bg-indigo-600', day.isSelected &amp;&amp; !day.isToday &amp;&amp; 'bg-gray-900']"
+              tag-id="tag-3GXMSV1W"
+              >{{ day.date.split(&apos;-&apos;).pop().replace(/^0/, &apos;&apos;) }}</time
+            >
           </button>
         </div>
-        <button type="button" class="mt-8 w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" tag-id="tag-rs1RUPnQ">Add event</button>
+        <button
+          type="button"
+          class="bg-primary hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 font-semibold mt-8 px-3 py-2 rounded-md shadow text-sm text-white w-full"
+          tag-id="tag-rs1RUPnQ">
+          Add event
+        </button>
       </div>
-      <ol class="mt-4 divide-y divide-gray-100 text-sm leading-6 lg:col-span-7 xl:col-span-8" tag-id="tag-XmFmlnt8">
-        <li v-for="meeting in meetings" :key="meeting.id" class="relative flex space-x-6 py-6 xl:static" tag-id="tag-T1jxd6S9">
-          <img :src="meeting.imageUrl" alt="" class="h-14 w-14 flex-none rounded-full" tag-id="tag-8G4S7sxM"/>
+      <ol
+        class="lg:col-span-7 xl:col-span-8 divide-gray-100 divide-y leading-6 mt-4 text-sm"
+        tag-id="tag-XmFmlnt8">
+        <li
+          v-for="meeting in meetings"
+          :key="meeting.id"
+          class="xl:static flex py-6 relative space-x-6"
+          tag-id="tag-T1jxd6S9">
+          <img
+            :src="meeting.imageUrl"
+            alt=""
+            class="flex-none h-14 rounded-full w-14"
+            tag-id="tag-8G4S7sxM" />
           <div class="flex-auto" tag-id="tag-cYjrWiCU">
-            <h3 class="pr-10 font-semibold text-gray-900 xl:pr-0" tag-id="tag-4DCgTIZZ">{{ meeting.name }}</h3>
-            <dl class="mt-2 flex flex-col text-gray-500 xl:flex-row" tag-id="tag-8TmVT3k4">
+            <h3
+              class="xl:pr-0 font-semibold pr-10 text-gray-900"
+              tag-id="tag-4DCgTIZZ">
+              {{ meeting.name }}
+            </h3>
+            <dl
+              class="xl:flex-row flex flex-col mt-2 text-gray-500"
+              tag-id="tag-8TmVT3k4">
               <div class="flex items-start space-x-3" tag-id="tag-m7dvtvl7">
                 <dt class="mt-0.5" tag-id="tag-YiltqnFc">
                   <span class="sr-only" tag-id="tag-Pc3frJIW">Date</span>
-                  <CalendarIcon class="h-5 w-5 text-gray-400" aria-hidden="true" tag-id="tag-jhJKEbkG"/>
+                  <CalendarIcon
+                    class="h-5 text-gray-400 w-5"
+                    aria-hidden="true"
+                    tag-id="tag-jhJKEbkG" />
                 </dt>
                 <dd tag-id="tag-Acgm99d8">
-                  <time :datetime="meeting.datetime" tag-id="tag-qVEN31Bb">{{ meeting.date }} at {{ meeting.time }}</time>
+                  <time :datetime="meeting.datetime" tag-id="tag-qVEN31Bb"
+                    >{{ meeting.date }} at {{ meeting.time }}</time
+                  >
                 </dd>
               </div>
-              <div class="mt-2 flex items-start space-x-3 xl:ml-3.5 xl:mt-0 xl:border-l xl:border-gray-400 xl:border-opacity-50 xl:pl-3.5" tag-id="tag-AqbkaSNh">
+              <div
+                class="mt-2 flex items-start space-x-3 xl:ml-3.5 xl:mt-0 xl:border-l xl:border-gray-400 xl:border-opacity-50 xl:pl-3.5"
+                tag-id="tag-AqbkaSNh">
                 <dt class="mt-0.5" tag-id="tag-ATNuDck4">
                   <span class="sr-only" tag-id="tag-VPUsgasf">Location</span>
-                  <MapPinIcon class="h-5 w-5 text-gray-400" aria-hidden="true" tag-id="tag-aSGQvwnE"/>
+                  <MapPinIcon
+                    class="h-5 text-gray-400 w-5"
+                    aria-hidden="true"
+                    tag-id="tag-aSGQvwnE" />
                 </dt>
                 <dd tag-id="tag-JubgAfRM">{{ meeting.location }}</dd>
               </div>
             </dl>
           </div>
-          <Menu as="div" class="absolute right-0 top-6 xl:relative xl:right-auto xl:top-auto xl:self-center" tag-id="tag-vU5AIUL9">
+          <Menu
+            as="div"
+            class="xl:relative xl:right-auto xl:top-auto xl:self-center absolute right-0 top-6"
+            tag-id="tag-vU5AIUL9">
             <div tag-id="tag-W53klPIr">
-              <MenuButton class="-m-2 flex items-center rounded-full p-2 text-gray-500 hover:text-gray-600" tag-id="tag-pNZsczG1">
+              <MenuButton
+                class="-m-2 hover:text-gray-600 flex items-center p-2 rounded-full text-gray-500"
+                tag-id="tag-pNZsczG1">
                 <span class="sr-only" tag-id="tag-y81nd2AF">Open options</span>
-                <EllipsisHorizontalIcon class="h-5 w-5" aria-hidden="true" tag-id="tag-7Ii4X1mb"/>
+                <EllipsisHorizontalIcon
+                  class="h-5 w-5"
+                  aria-hidden="true"
+                  tag-id="tag-7Ii4X1mb" />
               </MenuButton>
             </div>
 
-            <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95" tag-id="tag-AWlGpRF6">
-              <MenuItems class="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" tag-id="tag-tYrxZXLw">
+            <transition
+              enter-active-class="duration-100 ease-out transition"
+              enter-from-class="transform opacity-0 scale-95"
+              enter-to-class="transform opacity-100 scale-100"
+              leave-active-class="duration-75 ease-in transition"
+              leave-from-class="transform opacity-100 scale-100"
+              leave-to-class="transform opacity-0 scale-95"
+              tag-id="tag-AWlGpRF6">
+              <MenuItems
+                class="ring-opacity-5 focus:outline-none absolute bg-white mt-2 origin-top-right right-0 ring-1 ring-black rounded-md shadow-lg w-36 z-10"
+                tag-id="tag-tYrxZXLw">
                 <div class="py-1" tag-id="tag-5rBLPiZp">
                   <MenuItem v-slot="{ active }" tag-id="tag-d3yvV5iI">
-                    <a href="#" :class="[active ? &apos;bg-gray-100 text-gray-900&apos; : &apos;text-gray-700&apos;, &apos;block px-4 py-2 text-sm&apos;]" tag-id="tag-psPlBCLT">Edit</a>
+                    <a
+                      href="#"
+                      :class="[
+                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                        'block px-4 py-2 text-sm'
+                      ]"
+                      tag-id="tag-psPlBCLT"
+                      >Edit</a
+                    >
                   </MenuItem>
                   <MenuItem v-slot="{ active }" tag-id="tag-9XSKuuMt">
-                    <a href="#" :class="[active ? &apos;bg-gray-100 text-gray-900&apos; : &apos;text-gray-700&apos;, &apos;block px-4 py-2 text-sm&apos;]" tag-id="tag-2y8uAIgd">Cancel</a>
+                    <a
+                      href="#"
+                      :class="[
+                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                        'block px-4 py-2 text-sm'
+                      ]"
+                      tag-id="tag-2y8uAIgd"
+                      >Cancel</a
+                    >
                   </MenuItem>
                 </div>
               </MenuItems>
@@ -93,8 +191,8 @@ const meetings = [
     name: 'Leslie Alexander',
     imageUrl:
       'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    location: 'Starbucks',
-  },
+    location: 'Starbucks'
+  }
   // More meetings...
 ]
 const days = [
@@ -139,6 +237,6 @@ const days = [
   { date: '2022-02-03' },
   { date: '2022-02-04' },
   { date: '2022-02-05' },
-  { date: '2022-02-06' },
+  { date: '2022-02-06' }
 ]
 </script>

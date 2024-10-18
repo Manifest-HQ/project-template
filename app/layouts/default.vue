@@ -1,6 +1,6 @@
 <template>
   <div class="h-screen" tag-id="tag-4F57HrTt">
-    <NuxtPage tag-id="tag-Xt3h6fyE"/>
+    <NuxtPage tag-id="tag-Xt3h6fyE" />
   </div>
 </template>
 
@@ -55,6 +55,7 @@ function sendMessageHTMLBody() {
     '*'
   )
 }
+
 function connectToProjectRealtimeUpdates() {
   console.log('connectToProjectRealtimeUpdates')
   // disconnect from any previos connection first
@@ -133,7 +134,13 @@ async function handleUpdates(payload) {
 
   if (platform === 'web') return
 
-  if (payload.new && payload.new[platform]) {
+  if (
+    payload.new &&
+    payload.new.zip_url &&
+    payload.new.version &&
+    payload.new[platform] &&
+    payload.new.built === true
+  ) {
     await applyZipUpdate(payload.new.zip_url, payload.new.version)
   }
 }

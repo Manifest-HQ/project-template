@@ -41,7 +41,7 @@ jobs:
 
       - name: Enable Realtime on All Tables
         run: psql $DATABASE_URL -f enable_realtime.sql
-        working-directory: manifest
+        working-directory: .github/scripts/
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
