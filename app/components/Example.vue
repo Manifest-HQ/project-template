@@ -1,14 +1,5 @@
 <template>
-  <div tag-id="tag-yt9C5UAL">
-    This is an example
-    {{ GITHUB_REPO }}
-  </div>
+  <div>This is an example component</div>
 </template>
 
-<script setup>
-const config = useRuntimeConfig()
-
-const GITHUB_REPO = computed(() => {
-  return config.public
-})
-</script>
+<script setup></script>

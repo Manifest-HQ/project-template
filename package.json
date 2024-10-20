@@ -5,14 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "node manifest/live-file-sync.js",
-    "init": "npm i && cd app && npm i && cd ../manifest/server && npm i",
-    "iframe:start": "bun run dev:server & (cd manifest/server && node index.js)",
     "dev": "cd app && bun i && bun run dev",
-    "dev:server": "cd app && bun i && bun run dev:server",
-    "prepare": "npx husky",
-    "heroku": "concurrently \"bun run server\" \"bun run dev:server\"",
-    "heroku-postbuild": "cd app && bun i",
     "lint": "eslint ."
   },
   "husky": {
@@ -23,14 +16,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@capacitor/assets": "^3.0.1",
     "@prisma/client": "5.10.2",
     "@supabase/supabase-js": "^2.39.7",
-    "concurrently": "^8.2.1",
-    "dotenv": "^16.4.5",
     "eslint-plugin-node": "^11.1.0",
-    "express": "^4.18.2",
-    "firebase-admin": "^11.11.0",
     "ignore": "^5.2.4",
     "node-fetch": "^3.3.2",
     "nodemon": "^3.0.1",
@@ -42,7 +30,6 @@
     "eslint": "^8.43.0",
     "eslint-config-standard": "^17.1.0",
     "fs": "^0.0.1-security",
-    "husky": "^9.1.6",
     "path": "^0.12.7"
   },
   "engines": {

@@ -13,24 +13,7 @@ model users {
   updated_at DateTime @updatedAt
 
   name   String
-  email  String
-  emails emails[]
+  email  String?
 
-  phone String?
-
-  @@unique([email, phone])
-}
-
-model emails {
-  id         Int      @id @default(autoincrement())
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  sender       String
-  recipient_id Int
-  recipient    users     @relation(fields: [recipient_id], references: [id])
-  content      String
-  subject      String
-  read_at      DateTime?
-  deleted_at   DateTime?
+  @@unique([email])
 }

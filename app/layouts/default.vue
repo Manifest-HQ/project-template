@@ -1,6 +1,6 @@
 <template>
-  <div class="h-screen" tag-id="tag-4F57HrTt">
-    <NuxtPage tag-id="tag-Xt3h6fyE" />
+  <div class="h-screen">
+    <NuxtPage />
   </div>
 </template>
 
@@ -27,33 +27,6 @@ function initIframeMessaging() {
     sendMessageElementClicked(event)
     sendMessageHTMLBody()
   })
-}
-
-function sendMessageElementClicked(event) {
-  const tagID = event.target.getAttribute('tag-id')
-  if (!tagID) return
-  // Send a message to the parent window with the clicked element's ID
-  window.parent.postMessage(
-    {
-      type: 'elementClicked',
-      tagID: tagID,
-      className: event.target.className,
-      tagName: event.target.tagName,
-      innerText: event.target.innerText
-    },
-    '*'
-  )
-}
-
-function sendMessageHTMLBody() {
-  const htmlBody = document.body
-  window.parent.postMessage(
-    {
-      type: 'htmlBody',
-      htmlBody: htmlBody.innerHTML
-    },
-    '*'
-  )
 }
 
 function connectToProjectRealtimeUpdates() {
