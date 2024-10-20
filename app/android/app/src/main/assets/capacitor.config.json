@@ -3,7 +3,9 @@
 	"appName": "manifest-app",
 	"webDir": ".output/public",
 	"server": {
-		"androidScheme": "https"
+		"androidScheme": "https",
+		"url": "http://192.168.1.12:9001",
+		"cleartext": true
 	},
 	"plugins": {
 		"CapacitorUpdater": {

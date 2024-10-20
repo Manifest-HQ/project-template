@@ -1,6 +1,5 @@
 <template>
   <div class="p-4">
-    hola
     <div
       v-for="[tableName, tableContents] in Object.entries(storeDB.tables)"
       :key="tableName">

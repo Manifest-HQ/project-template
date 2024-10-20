@@ -1,5 +1,3 @@
-@import './variables.css'
-
 html, body
   margin: 0
   padding: 0
@@ -8,6 +6,7 @@ html, body
 h1, h2, h3, h4, h5, h6, header, .heading
   font-family: var(--font-heading)
 
+// Safe area padding, used for iOS and Android to avoid the notch and the bottom bar
 .pt-safe
   padding-top: 0
   padding-top: env(safe-area-inset-top)
@@ -15,3 +14,4 @@ h1, h2, h3, h4, h5, h6, header, .heading
 .pb-safe
   padding-bottom: 0
   padding-bottom: env(safe-area-inset-bottom)
+//

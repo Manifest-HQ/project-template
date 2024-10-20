@@ -3,12 +3,14 @@
   "appName": "manifest-app",
   "webDir": ".output/public",
   "server": {
-    "androidScheme": "https"
+    "androidScheme": "https",
+    "url": "http://192.168.1.12:9001",
+    "cleartext": true
   },
   "plugins": {
-		"CapacitorUpdater": {
-			"updateUrl": "https://api.manifest-hq.com/updates",
+    "CapacitorUpdater": {
+      "updateUrl": "https://api.manifest-hq.com/updates",
       "appReadyTimeout": 10000
-		}
-	}
+    }
+  }
 }
