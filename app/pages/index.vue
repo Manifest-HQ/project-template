@@ -2,7 +2,7 @@
   <div class="p-4">
     hola
     <div
-      v-for="[tableName, tableContents] in Object.entries(storeDB.tables)"
+      v-for="[tableName, tableContents] in Object.entries(db().tables)"
       :key="tableName">
       <h2>{{ tableName }}</h2>
       <div v-for="record in tableContents" :key="record.id">
@@ -14,7 +14,7 @@
 
         <button @click="updateRecord(tableName, record)">Update</button>
 
-        <button @click="storeDB.deleteRecord(tableName, record)">Delete</button>
+        <button @click="db().deleteRecord(tableName, record)">Delete</button>
       </div>
 
       <button @click="add(tableName)">Add to {{ tableName }}</button>
@@ -23,10 +23,6 @@
 </template>
 
 <script setup>
-import { useStoreDB } from '@/stores/DB'
-
-const storeDB = useStoreDB()
-
 function randomString() {
   return (
     Math.random().toString(36).substring(2, 15) +
@@ -38,11 +34,11 @@ function updateRecord(tableName, record) {
   console.log('updateRecord', tableName, record.id)
   const newRecord = { ...record }
   newRecord.name = randomString()
-  storeDB.updateRecord(tableName, newRecord)
+  db().updateRecord(tableName, newRecord)
 }
 
 function add(tableName) {
   console.log('add', tableName)
-  storeDB.insertRecord(tableName, { name: randomString() })
+  db().insertRecord(tableName, { name: randomString() })
 }
 </script>
