@@ -1,9 +1,9 @@
 <script setup>
-import { cn } from "/lib/utils";
+import { cn } from '/lib/utils'
 
 const props = defineProps({
-  class: { type: null, required: false },
-});
+  class: { type: null, required: false }
+})
 </script>
 
 <template>
@@ -11,10 +11,9 @@ const props = defineProps({
     :class="
       cn(
         'h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-0.5',
-        props.class,
+        props.class
       )
-    "
-  >
+    ">
     <slot />
   </th>
 </template>

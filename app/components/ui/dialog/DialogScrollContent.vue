@@ -1,13 +1,13 @@
 <script setup>
-import { computed } from "vue";
+import { computed } from 'vue'
 import {
   DialogClose,
   DialogContent,
   DialogOverlay,
   DialogPortal,
-  useForwardPropsEmits,
-} from "radix-vue";
-import { cn } from "/lib/utils";
+  useForwardPropsEmits
+} from 'radix-vue'
+import { cn } from '/lib/utils'
 
 const props = defineProps({
   forceMount: { type: Boolean, required: false },
@@ -15,57 +15,55 @@ const props = defineProps({
   disableOutsidePointerEvents: { type: Boolean, required: false },
   asChild: { type: Boolean, required: false },
   as: { type: null, required: false },
-  class: { type: null, required: false },
-});
+  class: { type: null, required: false }
+})
 const emits = defineEmits([
-  "escapeKeyDown",
-  "pointerDownOutside",
-  "focusOutside",
-  "interactOutside",
-  "openAutoFocus",
-  "closeAutoFocus",
-]);
+  'escapeKeyDown',
+  'pointerDownOutside',
+  'focusOutside',
+  'interactOutside',
+  'openAutoFocus',
+  'closeAutoFocus'
+])
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
+  const { class: _, ...delegated } = props
 
-  return delegated;
-});
+  return delegated
+})
 
-const forwarded = useForwardPropsEmits(delegatedProps, emits);
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>
   <DialogPortal>
     <DialogOverlay
-      class="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
-    >
+      class="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">
       <DialogContent
         :class="
-cn(
-  'relative z-50 grid w-full max-w-lg my-8 gap-4 border border-border bg-background p-6 shadow-lg duration-200 sm:rounded-lg md:w-full',
-  props.class
-)]"
+          cn(
+            'relative z-50 grid w-full max-w-lg my-8 gap-4 border border-border bg-background p-6 shadow-lg duration-200 sm:rounded-lg md:w-full',
+            props.class
+          )
+        "
         v-bind="forwarded"
         @pointer-down-outside="
           (event) => {
-            const originalEvent = event.detail.originalEvent;
-            const target = originalEvent.target;
+            const originalEvent = event.detail.originalEvent
+            const target = originalEvent.target
             if (
               originalEvent.offsetX > target.clientWidth ||
               originalEvent.offsetY > target.clientHeight
             ) {
-              event.preventDefault();
+              event.preventDefault()
             }
           }
-        "
-      >
+        ">
         <slot />
 
         <DialogClose
-          class="absolute top-4 right-4 p-0.5 transition-colors rounded-md hover:bg-secondary"
-        >
-          <Cross2Icon class="w-4 h-4" />
+          class="absolute top-4 right-4 p-0.5 transition-colors rounded-md hover:bg-secondary">
+          <Cross2Icon class="h-4 w-4" />
           <span class="sr-only">Close</span>
         </DialogClose>
       </DialogContent>
